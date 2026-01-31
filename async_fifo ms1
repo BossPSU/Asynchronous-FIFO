@@ -1,0 +1,94 @@
+//pulls all the parameters
+import async_fifo_package::*;
+
+module async_fifo(
+  input  logic                 wclk, wrst, w_valid, //write side
+  input  logic                 rclk, rrst, r_ready, //read side
+  input  logic [DATA_WIDTH-1:0] w_data, //write side still
+  output logic                 w_ready, r_valid,
+  output logic [DATA_WIDTH-1:0] r_data //read side
+);
+
+  // binary pointers
+  logic [ADDR_WIDTH-1:0] wptr_bin, rptr_bin; //used to index memoru
+
+  // gray pointers 
+  logic [ADDR_WIDTH-1:0] wptr_gray, rptr_gray; //same pointer but better for clcok crossing
+
+  // synchronized gray pointers
+  logic [ADDR_WIDTH-1:0] rptr_gray_wclk;   // read pointer synced into wclk domain
+  logic [ADDR_WIDTH-1:0] wptr_gray_rclk;   // write pointer synced into rclk domain
+
+//flags and handshake stuff
+  logic fifo_empty, fifo_full;
+
+  assign w_ready = ~fifo_full;
+  assign r_valid = ~fifo_empty;
+
+ 
+  // reset write pointer goes to zero
+//incremts only when write valid and write ready true
+  always_ff @(posedge wclk or posedge wrst) begin
+    if (wrst) begin
+      wptr_bin <= '0;
+    end else if (w_valid && w_ready) begin
+      wptr_bin <= wptr_bin + 1'b1;
+    end
+  end
+
+//converts binary to graycode
+  assign wptr_gray = (wptr_bin >> 1) ^ wptr_bin;
+
+  //read pointer
+//rest sets read pointer to 0
+//incrments only when valid like wirite pointer
+  always_ff @(posedge rclk or posedge rrst) begin
+    if (rrst) begin
+      rptr_bin <= '0;
+    end else if (r_valid && r_ready) begin
+      rptr_bin <= rptr_bin + 1'b1;
+    end
+  end
+
+
+/convery read pointer to gray code
+  assign rptr_gray = (rptr_bin >> 1) ^ rptr_bin;
+
+ 
+  dualport_mem mem(
+    .w_clk  (wclk),
+    .r_clk  (rclk),
+    .w_en   (w_valid && w_ready),
+    .r_en   (r_valid && r_ready),
+    .w_addr (wptr_bin),
+    .r_addr (rptr_bin),
+    .w_data (w_data),
+    .r_data (r_data)
+  );
+
+  
+  // sync read pointer into write clock domain
+  two_ff_sync rptr_sync_to_wclk(
+    .clk (wclk),
+    .rst (wrst),
+    .d   (rptr_gray),
+    .q   (rptr_gray_wclk)
+  );
+
+  // sync write pointer into read clock domain
+  two_ff_sync wptr_sync_to_rclk(
+    .clk (rclk),
+    .rst (rrst),
+    .d   (wptr_gray),
+    .q   (wptr_gray_rclk)
+  );
+
+  
+  assign fifo_empty = (rptr_gray == wptr_gray_rclk);
+
+  // full when next write pointer == read pointer with MSBs inverted 
+  assign fifo_full =
+    (wptr_gray == {~rptr_gray_wclk[ADDR_WIDTH-1:ADDR_WIDTH-2],
+                   rptr_gray_wclk[ADDR_WIDTH-3:0]});
+
+endmodule
