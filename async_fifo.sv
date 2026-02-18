@@ -11,7 +11,7 @@ module async_fifo #(
 	input logic [DATA_WIDTH-1:0] w_data,
 	output logic w_ready,
 
-	//read domian
+	//read domain
 	input logic rclk,
 	input logic rrst,
 	input logic r_ready,	// active-high async reset
@@ -59,7 +59,9 @@ module async_fifo #(
   
 	end
 	
-	//memory(dualport_mem)
+  	// memory (dualport_mem)
+	// this assumes your dualport_mem is the "show-head" (combinational read) version,
+  	// ports: w_clk,w_en,w_addr,w_data,r_addr,r_data
 	dualport_mem #(
 		.DTATA_WIDTH(DATA_WIDTH),
 		.DEPTH(DEPTH)
@@ -73,20 +75,21 @@ module async_fifo #(
 		.r_data (r_data)
 	);
 
-	//sync: sync gray pointers across domains
-	//sync rptr_gray to wclk
+	//CDC sync: sync gray pointers across domains
+	//rptr_gray to wclk domain
 	sync_2ff #(.W(PTR_WIDTH)) u_sync_rptr (
-		.clk(wclk),
-		.rst(wrst),
-		.d(rptr_gray),
-		.q(rptr_gray_wclk)
+		.clk	(wclk),
+		.rst	(wrst),
+		.d		(rptr_gray),
+		.q		(rptr_gray_wclk)
 	);
-	//sync wptr_gray -> rclk
+	
+	//sync wptr_gray -> rclk domain
 	sync_2ff #(.W(PTR_WIDTH)) u_sync_wptr (
-		.clk(rclk),
-		.rst(rrst),
-		.d(wptr_gray),
-		.q(wptr_gray)
+		.clk	(rclk),
+		.rst	(rrst),
+		.d		(wptr_gray),
+		.q		(wptr_gray_rclk)
 	);
 
 	//empty/full next
@@ -98,7 +101,7 @@ module async_fifo #(
 
 	wire full_next = (wptr_gray_next == rptr_gray_full_cmp);
 
-	//write domain
+	//write domain regs
 	  always_ff @(posedge wclk or posedge wrst) begin
 		  if (wrst) begin
 			wptr_bin <= '0;
@@ -111,7 +114,7 @@ module async_fifo #(
 		  end
 		end
 	
-	//read domain
+	//read domain regs
 	  always_ff @(posedge rclk or posedge rrst) begin
 		  if (rrst) begin
 			rptr_bin <= '0;
