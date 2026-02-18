@@ -1,6 +1,7 @@
 import async_fifo_package::*;
+
 module dualport_mem(
-	input logic w_clk,r_clk,w_en,r_en,
+	input logic w_clk, r_clk, w_en, r_en,
 	input logic [ADDR_WIDTH-1:0] w_addr,r_addr,
 	input logic [DATA_WIDTH-1:0] w_data,
 	output logic [DATA_WIDTH-1:0] r_data
@@ -8,7 +9,8 @@ module dualport_mem(
 
 	//memory array
 	logic [DATA_WIDTH-1:0] mem [DEPTH-1:0];
-	
+
+	//write port wclk
 	always_ff(@posedge w_clk) begin
 		if (w_en) begin
 			if (w_addr < DEPTH)
@@ -16,6 +18,7 @@ module dualport_mem(
 		end
 	end
 
+	//read port 
 	always_ff(@posedge r_clk) begin
 		if(r_en) begin
 			if (r_addr < DEPTH)
