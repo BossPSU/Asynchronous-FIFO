@@ -1,5 +1,3 @@
-import async_fifo_package::*;
-
 module async_fifo #(
 	parameter int DATA_WIDTH = 8,
 	parameter int DEPTH = 16 //2^N
@@ -28,11 +26,11 @@ module async_fifo #(
 	logic [PTR_WIDTH-1:0] wptr_gray, wptr_gray_next;
 	
 	logic [PTR_WIDTH-1:0] rptr_bin, rptr_bin_next;
-	logic [PTR_WIDTH-1:0] wptr_gray, rptr_gray_next;
+	logic [PTR_WIDTH-1:0] rptr_gray, rptr_gray_next;
 
 	//synchronized gray pointers(sync_2ff modules)
-	logic [PTR_WIDTH-1:0] rptr_gay_wclk; //rgray synced into wclk domain
-	logic [PTR_WIDTH-1:0] rptr_gay_rclk; //wgray synced into rclk domain
+	logic [PTR_WIDTH-1:0] rptr_gray_wclk; //rgray synced into wclk domain
+	logic [PTR_WIDTH-1:0] wptr_gray_rclk; //wgray synced into rclk domain
 
 	//flags, each domain updates its own flag
 	logic full, empty;
