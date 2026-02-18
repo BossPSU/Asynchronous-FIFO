@@ -1,0 +1,124 @@
+import async_fifo_package::*;
+
+module async_fifo #(
+  parameter int DATA_WIDTH = 8,
+  parameter int DEPTH      = 16   // should be power of 2
+)(
+  // write domain
+  input  logic                 wclk,
+  input  logic                 wrst,     // active-high async reset
+  input  logic                 w_valid,
+  input  logic [DATA_WIDTH-1:0] w_data,
+  output logic                 w_ready,
+
+  // read domain
+  input  logic                 rclk,
+  input  logic                 rrst,     // active-high async reset
+  input  logic                 r_ready,
+  output logic                 r_valid,
+  output logic [DATA_WIDTH-1:0] r_data
+);
+
+  // widths
+  localparam int ADDR_WIDTH = $clog2(DEPTH);
+  localparam int PTR_WIDTH  = ADDR_WIDTH + 1;  // extra wrap bit
+
+  // binary + gray pointers
+  logic [PTR_WIDTH-1:0] wptr_bin,  wptr_bin_next;
+  logic [PTR_WIDTH-1:0] rptr_bin,  rptr_bin_next;
+  logic [PTR_WIDTH-1:0] wptr_gray, wptr_gray_next;
+  logic [PTR_WIDTH-1:0] rptr_gray, rptr_gray_next;
+
+  // synchronized gray pointers
+  logic [PTR_WIDTH-1:0] rptr_gray_wclk; // rptr gray synced into wclk domain
+  logic [PTR_WIDTH-1:0] wptr_gray_rclk; // wptr gray synced into rclk domain
+
+  // flags
+  logic full, empty;
+
+  // handshake
+  assign w_ready = ~full;
+  assign r_valid = ~empty;
+
+  wire w_en = w_valid && w_ready;
+  wire r_en = r_valid && r_ready;
+
+  // bin -> gray
+  function automatic logic [PTR_WIDTH-1:0] bin2gray(input logic [PTR_WIDTH-1:0] b);
+    bin2gray = (b >> 1) ^ b;
+  endfunction
+
+  // next pointer calc
+  always_comb begin
+    wptr_bin_next  = wptr_bin + (w_en ? 1'b1 : 1'b0);
+    wptr_gray_next = bin2gray(wptr_bin_next);
+
+    rptr_bin_next  = rptr_bin + (r_en ? 1'b1 : 1'b0);
+    rptr_gray_next = bin2gray(rptr_bin_next);
+  end
+
+  // memory
+  dualport_mem #(
+    .DATA_WIDTH(DATA_WIDTH),
+    .DEPTH(DEPTH)
+  ) u_mem (
+    .w_clk  (wclk),
+    .w_en   (w_en),
+    .w_addr (wptr_bin[ADDR_WIDTH-1:0]),
+    .w_data (w_data),
+    .r_addr (rptr_bin[ADDR_WIDTH-1:0]),
+    .r_data (r_data)
+  );
+
+  // sync rptr_gray -> wclk
+  sync_2ff #(.WIDTH(PTR_WIDTH)) u_sync_rptr (
+    .clk (wclk),
+    .rst (wrst),
+    .d   (rptr_gray),
+    .q   (rptr_gray_wclk)
+  );
+
+  // sync wptr_gray -> rclk
+  sync_2ff #(.WIDTH(PTR_WIDTH)) u_sync_wptr (
+    .clk (rclk),
+    .rst (rrst),
+    .d   (wptr_gray),
+    .q   (wptr_gray_rclk)
+  );
+
+  // empty (read domain): next rptr == synced wptr
+  wire empty_next = (rptr_gray_next == wptr_gray_rclk);
+
+  // full (write domain): next wptr == synced rptr with top 2 bits inverted
+  wire [PTR_WIDTH-1:0] rptr_gray_full_cmp =
+    {~rptr_gray_wclk[PTR_WIDTH-1:PTR_WIDTH-2], rptr_gray_wclk[PTR_WIDTH-3:0]};
+
+  wire full_next = (wptr_gray_next == rptr_gray_full_cmp);
+
+  // write domain regs
+  always_ff @(posedge wclk or posedge wrst) begin
+    if (wrst) begin
+      wptr_bin  <= '0;
+      wptr_gray <= '0;
+      full      <= 1'b0;
+    end else begin
+      wptr_bin  <= wptr_bin_next;
+      wptr_gray <= wptr_gray_next;
+      full      <= full_next;
+    end
+  end
+
+  // read domain regs
+  always_ff @(posedge rclk or posedge rrst) begin
+    if (rrst) begin
+      rptr_bin  <= '0;
+      rptr_gray <= '0;
+      empty     <= 1'b1;
+    end else begin
+      rptr_bin  <= rptr_bin_next;
+      rptr_gray <= rptr_gray_next;
+      empty     <= empty_next;
+    end
+  end
+
+endmodule
