@@ -1,14 +1,17 @@
 import async_fifo_package::*;
 
-module async_fifo(
-	//write 
+module async_fifo#(
+	parameter int DATA_WIDTH = 8,
+	parameter int FIFO_DEPTH = 16 //2^N
+)(
+	//write domain
 	input logic wclk, 
 	input logic wrst,	// active-high async reset
 	input logic w_valid,
 	input logic [DATA_WIDTH-1:0] w_data,
 	output logic w_ready,
 
-	//read
+	//read domian
 	input logic rclk,
 	input logic rrst,
 	input logic r_ready,	// active-high async reset
@@ -16,10 +19,9 @@ module async_fifo(
 	output logic [DATA_WIDTH-1:0] r_data,
 	);
 
-	//address width calculate
-	
-	localparam ADDR_WIDTH = $clog2(DEPTH);
-	localparam PTR_WIDTH = ADDR_WIDTH + 1;  // extra bit use for empty/full
+	//widths
+	localparam int ADDR_WIDTH = $clog2(DEPTH);
+	localparam int PTR_WIDTH = ADDR_WIDTH + 1;  // extra wrap bit use for empty/full
 	
 	//binary and grey pointers
 	logic [PTR_WIDTH-1:0] wptr_bin, wptr_bin_next;
@@ -28,21 +30,41 @@ module async_fifo(
 	logic [PTR_WIDTH-1:0] rptr_bin,rptr_bin_next;
 	logic [PTR_WIDTH-1:0] wptr_gray, rptr_gray_next;
 
+	//synchronized gray pointers 2ff
+	//logic [PTR_WIDTH-1:0] rgay_wclk; //rgray synced into wclk domain
+	//logic [PTR_WIDTH-1:0] wgay_rclk; //wgray synced into rclk domain
+
 	//synchronized gray pointers
-	logic [PTR_WIDTH-1:0] rgay_wclk; //rgray synced into wclk domain
-	logic [PTR_WIDTH-1:0] wgay_rclk; //wgray synced into rclk domain
+	logic [PTR_WIDTH-1:0] rptr_gray_sync1, rptr_gray_sync;
+	logic [PTR_WIDTH-1:0] wptr_gray_sync1, wptr_gray_sync;
 
-	//synchronized pointers
-	logic [PTR_WIDTH-1:0] rptr_gray_sync;
-	logic [PTR_WIDTH-1:0] wptr_gray_sync;
-
-	//state 
+	//flag 
 	logic full, empty;
-	logic full_next, empty_next;
 
 	//write/read signal
 	assign w_ready = ~full;
 	assign r_valid = ~empty;
+
+	wire w_en = w_valid && w_ready;  // real write
+	wire r_en  = r_valid && r_ready;  // real read
+
+	//memory
+	logic [DATA_WIDTH-1:0] men [0:DEPTH-1];
+
+	// write memory
+	always_ff @(posedge wclk) begin	
+		if (write_en) begin
+    		mem[wptr_bin[ADDR_WIDTH-1:0]] <= w_data;
+		end
+	end
+
+	//read memory
+	assign r_data = mem[rptr_bin[ADDR_WIDTH-1:0]];
+
+	//bin to gray
+	function automatic logic [PTR_WIDTH-1:0] bin2gray(input logic [PTR_WIDTH-1:0] b);
+		bin2gray = (b >> 1) ^ b;
+  	endfunction
 	
 	//increment write pointer when FIFO recives outside write signal and FIFO is not full
 	always_ff @(posedge wclk or wrst) begin
