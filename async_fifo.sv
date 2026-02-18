@@ -60,14 +60,15 @@ module async_fifo #(
 	end
 	
 	//memory(dualport_mem)
-	dualport_mem u_mem(
+	dualport_mem #(
+		.DTATA_WIDTH(DATA_WIDTH),
+		.DEPTH(DEPTH)
+	) u_mem(
 		.w_clk  (wclk),
 		.w_en   (w_en),
 		.w_addr (wptr_bin[ADDR_WIDTH-1:0]),
     	.w_data (w_data),
 
-		.r_clk  (rclk),
-		.r_en   (r_en),
 		.r_addr (rptr_bin[ADDR_WIDTH-1:0]),
 		.r_data (r_data)
 	);
