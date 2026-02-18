@@ -1,16 +1,37 @@
 import async_fifo_package::*;
+
 module async_fifo(
-	input logic wclk,wrst,w_valid,rclk,rrst,r_ready,
+	//write 
+	input logic wclk, 
+	input logic wrst,	// active-high async reset
+	input logic w_valid,
 	input logic [DATA_WIDTH-1:0] w_data,
-	output logic w_ready,r_valid,
+	output logic w_ready,
+
+	//read
+	input logic rclk,
+	input logic rrst,
+	input logic r_ready,	// active-high async reset
+	output logic r_valid,
 	output logic [DATA_WIDTH-1:0] r_data,
 	);
 	
 	//binary and grey pointers
-	logic [ADDR_WIDTH-1:0] wptr_bin, wptr_gray, rptr_bin, wptr_gray;
-	logic fifo_empty, fifo_full;
+	logic [PTR_WIDTH-1:0] wptr_bin, wbin_next;
+	logic [PTR_WIDTH-1:0] wptr_gray, wgray_next;
 	
-	assign w_ready = ~fifo_full;
+	logic [PTR_WIDTH-1:0] rptr_bin,rbin_next;
+	logic [PTR_WIDTH-1:0] wptr_gray, rgray_next;
+
+	//synchronized gray pointers
+	logic [PTR_WIDTH-1:0] rgay_wclk; //rgray synced into wclk domain
+	logic [PTR_WIDTH-1:0] wgay_rclk; //wgray synced into rclk domain
+	
+	logic w_full, r_empty;
+	assign w_ready = ~w_full;
+	assign r_valid = ~r_empty;
+
+	
 	
 	//increment write pointer when FIFO recives outside write signal and FIFO is not full
 	always_ff @(posedge wclk or wrst) begin
@@ -47,14 +68,14 @@ module async_fifo(
 		.r_data(r_data)
 		);
 	
-	2ff_sync wptr_sync(
+	sync_2ff wptr_sync(
 		.clk(wclk),
 		.rst(wrst),
 		.d(rptr_gray),
 		.q(rptr_gray_wclk)
 		);
 		
-	2ff_sync rptr_sync(
+	sync_2ff rptr_sync(
 		.clk(rclk),
 		.rst(rrst),
 		.d(wptr_gray),
