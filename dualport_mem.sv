@@ -1,14 +1,17 @@
 import async_fifo_package::*;
 
 module dualport_mem(
+	parameter int DATA_WIDTH = 8,
+	parameter int DEPTH = 16   // 2^N
+)(
+	//write port
 	input logic w_clk,
 	input logic w_en,
-	input logic [ADDR_WIDTH-1:0] w_addr,
+	input  logic [$clog2(DEPTH)-1:0] w_addr,
 	input logic [DATA_WIDTH-1:0] w_data,
-	
-	input logic r_clk,
-	input logic r_en,
-	input logic [ADDR_WIDTH-1:0] r_addr,
+
+	//read port(show-head)
+	input  logic [$clog2(DEPTH)-1:0] r_addr,
 	output logic [DATA_WIDTH-1:0] r_data
 	);
 
@@ -22,11 +25,9 @@ module dualport_mem(
 		end
 	end
 
-	//read port 
-	always_ff @(posedge r_clk) begin
-		if(r_en) begin
-			r_data <= mem[r_addr];
-		end
+  //combinational read
+	always_comb begin
+		r_data = mem[r_addr];
 	end
 	
 endmodule
