@@ -15,13 +15,18 @@ module async_fifo(
 	output logic r_valid,
 	output logic [DATA_WIDTH-1:0] r_data,
 	);
+
+	//address width calculate
+	
+	localparam ADDR_WIDTH = $clog2(FIFO_DEPTH);
+	localparam PTR_WIDTH = ADDR_WIDTH + 1;  // extra bit use for empty/full
 	
 	//binary and grey pointers
-	logic [PTR_WIDTH-1:0] wptr_bin, wbin_next;
-	logic [PTR_WIDTH-1:0] wptr_gray, wgray_next;
+	logic [PTR_WIDTH-1:0] wptr_bin, wptr_bin_next;
+	logic [PTR_WIDTH-1:0] wptr_gray, wptr_gray_next;
 	
-	logic [PTR_WIDTH-1:0] rptr_bin,rbin_next;
-	logic [PTR_WIDTH-1:0] wptr_gray, rgray_next;
+	logic [PTR_WIDTH-1:0] rptr_bin,rptr_bin_next;
+	logic [PTR_WIDTH-1:0] wptr_gray, rptr_gray_next;
 
 	//synchronized gray pointers
 	logic [PTR_WIDTH-1:0] rgay_wclk; //rgray synced into wclk domain
