@@ -16,7 +16,7 @@ module async_fifo #(
 	input logic rrst,
 	input logic r_ready,	// active-high async reset
 	output logic r_valid,
-	output logic [DATA_WIDTH-1:0] r_data,
+	output logic [DATA_WIDTH-1:0] r_data
 	);
 
 	//widths
