@@ -18,7 +18,7 @@ module async_fifo(
 
 	//address width calculate
 	
-	localparam ADDR_WIDTH = $clog2(FIFO_DEPTH);
+	localparam ADDR_WIDTH = $clog2(DEPTH);
 	localparam PTR_WIDTH = ADDR_WIDTH + 1;  // extra bit use for empty/full
 	
 	//binary and grey pointers
@@ -31,12 +31,18 @@ module async_fifo(
 	//synchronized gray pointers
 	logic [PTR_WIDTH-1:0] rgay_wclk; //rgray synced into wclk domain
 	logic [PTR_WIDTH-1:0] wgay_rclk; //wgray synced into rclk domain
-	
-	logic w_full, r_empty;
-	assign w_ready = ~w_full;
-	assign r_valid = ~r_empty;
 
-	
+	//synchronized pointers
+	logic [PTR_WIDTH-1:0] rptr_gray_sync;
+	logic [PTR_WIDTH-1:0] wptr_gray_sync;
+
+	//state 
+	logic full, empty;
+	logic full_next, empty_next;
+
+	//write/read signal
+	assign w_ready = ~full;
+	assign r_valid = ~empty;
 	
 	//increment write pointer when FIFO recives outside write signal and FIFO is not full
 	always_ff @(posedge wclk or wrst) begin
