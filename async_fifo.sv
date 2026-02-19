@@ -61,7 +61,7 @@ module async_fifo #(
 	// this assumes your dualport_mem is the "show-head" (combinational read) version,
   	// ports: w_clk,w_en,w_addr,w_data,r_addr,r_data
 	dualport_mem #(
-		.DTATA_WIDTH(DATA_WIDTH),
+		.DATA_WIDTH(DATA_WIDTH),
 		.DEPTH(DEPTH)
 	) u_mem(
 		.w_clk  (wclk),
@@ -75,7 +75,7 @@ module async_fifo #(
 
 	//CDC sync: sync gray pointers across domains
 	//rptr_gray to wclk domain
-	sync_2ff #(.W(PTR_WIDTH)) u_sync_rptr (
+	sync_2ff #(.WIDTH(PTR_WIDTH)) u_sync_rptr (
 		.clk	(wclk),
 		.rst	(wrst),
 		.d	(rptr_gray),
@@ -83,7 +83,7 @@ module async_fifo #(
 	);
 	
 	//sync wptr_gray -> rclk domain
-	sync_2ff #(.W(PTR_WIDTH)) u_sync_wptr (
+	sync_2ff #(.WIDTH(PTR_WIDTH)) u_sync_wptr (
 		.clk	(rclk),
 		.rst	(rrst),
 		.d	(wptr_gray),
