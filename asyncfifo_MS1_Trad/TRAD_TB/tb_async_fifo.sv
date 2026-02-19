@@ -1,0 +1,87 @@
+
+`timescale 1ns/1ps
+import async_fifo_package::*;
+
+module tb_async_fifo;
+
+  // clocks start at 0
+  logic wclk = 0;
+  logic rclk = 0;
+
+  // resets
+  logic wrst;
+  logic rrst;
+
+  // write side
+  logic w_valid;
+  logic [DATA_WIDTH-1:0] w_data;
+  logic w_ready;
+
+  // read side
+  logic r_ready;
+  logic r_valid;
+  logic [DATA_WIDTH-1:0] r_data;
+
+  // DUT stuff
+  async_fifo dut (
+    .wclk(wclk),
+    .wrst(wrst),
+    .w_valid(w_valid),
+    .w_data(w_data),
+    .w_ready(w_ready),
+
+    .rclk(rclk),
+    .rrst(rrst),
+    .r_ready(r_ready),
+    .r_valid(r_valid),
+    .r_data(r_data)
+  );
+
+  
+  always #5  wclk = ~wclk;   // 100 MHz
+  always #7  rclk = ~rclk;   // 71 MHz
+
+  initial begin
+    wrst    = 1;
+    rrst    = 1;
+    w_valid = 0;
+    r_ready = 0;
+    w_data  = '0;
+
+    #20;
+    wrst = 0;
+    rrst = 0;
+
+    //write stuff
+    @(posedge wclk);
+    w_valid = 1; //vaild bit
+    w_data  = 32'hAAAA_0001;
+
+    @(posedge wclk);
+    w_data  = 32'hAAAA_0002;
+
+    @(posedge wclk);
+    w_data  = 32'hAAAA_0003;
+
+    @(posedge wclk);
+    w_valid = 0;
+
+  
+    #50;
+
+   //read time
+    r_ready = 1;
+
+    repeat (3) begin
+      @(posedge rclk);
+      if (r_valid)
+        $display("[%0t] read data = %h", $time, r_data);
+    end
+
+    r_ready = 0;
+
+    #50;
+    $finish;
+  end
+
+endmodule

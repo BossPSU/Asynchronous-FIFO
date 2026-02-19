@@ -1,0 +1,542 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2758
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\froman\fcharset0 Times-Roman;\f1\fswiss\fcharset0 ArialMT;\f2\froman\fcharset0 Times-Bold;
+}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red0\green0\blue233;\red83\green83\blue83;
+}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;\cssrgb\c0\c0\c93333;\cssrgb\c40000\c40000\c40000;
+}
+\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\sa266\qc\partightenfactor0
+
+\f0\fs53\fsmilli26667 \cf0 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 DESIGN SPEC DOCUMENT
+\fs24 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+\pard\pardeftab720\sa266\qc\partightenfactor0
+
+\fs53\fsmilli26667 \cf0 ECE-593: Fundamentals of Pre-Silicon Validation\uc0\u8232 Maseeh College of Engineering and Computer Science\u8232 Winter, 2025
+\fs24 \
+\pard\pardeftab720\sa266\qc\partightenfactor0
+
+\fs53\fsmilli26667 \cf0 {{\NeXTGraphic unknown.png \width13960 \height4440 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\pard\pardeftab720\sa266\qc\partightenfactor0
+
+\fs24 \cf0 \
+\pard\pardeftab720\sa266\partightenfactor0
+
+\fs53\fsmilli26667 \cf0 Project Name: Asynchronous FIFO\uc0\u8232 Members: Carson Waldron, Liukee Liu, David Boss\u8232 Date: Jan 30, 2026\u8232 \u8232 \u8232 
+\fs24 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+\pard\pardeftab720\sa266\qc\partightenfactor0
+
+\fs53\fsmilli26667 \cf0 \uc0\u8232 
+\fs24 \
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+\
+\
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth5942\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx4320
+\clmrg \clvertalt \clshdrawnil \clwWidth5942\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 Project Name
+\fs24 \cell 
+\pard\intbl\itap1\cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth5942\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth5942\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\cell
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 Asynchronous FIFO
+\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth5942\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx4320
+\clmrg \clvertalt \clshdrawnil \clwWidth5942\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 Location
+\fs24 \cell 
+\pard\intbl\itap1\cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth5942\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth5942\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\cell
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 Portland State University
+\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth5942\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx4320
+\clmrg \clvertalt \clshdrawnil \clwWidth5942\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 Start Date
+\fs24 \cell 
+\pard\intbl\itap1\cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth5942\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth5942\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\cell
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 Jan 25, 2026
+\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth5942\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx4320
+\clmrg \clvertalt \clshdrawnil \clwWidth5942\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 Estimated Finish Date
+\fs24 \cell 
+\pard\intbl\itap1\cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth5942\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth5942\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\cell
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 Mar 12, 2026
+\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth5942\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx4320
+\clmrg \clvertalt \clshdrawnil \clwWidth5942\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 Completed Date
+\fs24 \cell 
+\pard\intbl\itap1\cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth5942\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth5942\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\cell
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 Mar 14, 2026
+\fs24 \cell \lastrow\row
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clmgf \clvertalt \clshdrawnil \clwWidth12182\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx4320
+\clmrg \clvertalt \clshdrawnil \clwWidth12182\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 Prepared by: Group 6
+\fs24 \cell 
+\pard\intbl\itap1\cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clmgf \clvertalt \clshdrawnil \clwWidth12182\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx4320
+\clmrg \clvertalt \clshdrawnil \clwWidth12182\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 Prepared for: Prof. Venkatesh Patil
+\fs24 \cell 
+\pard\intbl\itap1\cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth6902\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx4320
+\clmrg \clvertalt \clshdrawnil \clwWidth6902\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 Team Member Name
+\fs24 \cell 
+\pard\intbl\itap1\cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth4982\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth4982\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\cell
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 Email
+\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth6902\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx4320
+\clmrg \clvertalt \clshdrawnil \clwWidth6902\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 Carson Waldron
+\fs24 \cell 
+\pard\intbl\itap1\cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth4982\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth4982\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\cell
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 cwaldron@pdx.edu
+\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth6902\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx4320
+\clmrg \clvertalt \clshdrawnil \clwWidth6902\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 Liukee Liu
+\fs24 \cell 
+\pard\intbl\itap1\cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth4982\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth4982\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\cell
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 liukee@pdx.edu
+\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth6902\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx4320
+\clmrg \clvertalt \clshdrawnil \clwWidth6902\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 David Boss
+\fs24 \cell 
+\pard\intbl\itap1\cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth4982\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth4982\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\cell
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 dboss@pdx.edu
+\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth6902\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx4320
+\clmrg \clvertalt \clshdrawnil \clwWidth6902\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 \cell 
+\pard\intbl\itap1\cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth4982\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx4320
+\clvertalt \clshdrawnil \clwWidth4982\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\cell
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 \cell \lastrow\row
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+\
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 Design Features:
+\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sa320\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 Dual-clock operation: The FIFO works with independent write (wclk) and read (rclk) clocks for clock-domain crossing (CDC).
+\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sa320\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 Parameterized design: Data width and FIFO depth can be configured based on the application.
+\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sa320\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 True dual-port memory: Uses a dual-port memory so read and write can happen at the same time.
+\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sa320\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 CDC synchronization: Pointers are converted from binary to Gray code and synchronized across domains using 2-flop synchronizers.
+\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sa320\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 Full/Empty flags: full and empty are generated using the synchronized Gray-code pointers.
+\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sa320\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 Safe operation: Writes are ignored when full=1, and reads are ignored when empty=1 to avoid overflow/underflow.
+\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sa320\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 Wrap-around support: Pointers wrap around naturally, so the FIFO runs as a circular buffer
+\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 \cell \lastrow\row
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+\
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 Project Description:
+\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sa320\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 This project implements an asynchronous FIFO (dual-clock FIFO) to transfer data safely between two independent clock domains. The FIFO supports ready/valid-style handshaking on both the write side and read side. Internally, it uses binary pointers for addressing memory, converts them to Gray-code pointers for clock-domain crossing (CDC), and uses 2-flop synchronizers to reduce metastability risk.
+\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sa320\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 The FIFO storage is implemented using a true dual-port memory, allowing the write and read processes to run independently on wclk and rclk.
+\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 \cell \lastrow\row
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 Important Signals/Flags
+\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sa320\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 w_valid (input): Write-side valid; indicates w_data is valid and a write is requested.
+\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sa320\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 w_ready (output): Write-side ready; FIFO can accept a write (~fifo_full).
+\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sa320\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 r_ready (input): Read-side ready; downstream is ready to accept data.
+\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sa320\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 r_valid (output): Read-side valid; FIFO has data available to read (~fifo_empty).
+\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sa320\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 fifo_full (internal): FIFO is full; blocks writes.
+\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sa320\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 fifo_empty (internal): FIFO is empty; blocks reads.
+\fs24 \cell \lastrow\row
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 Design Signals
+\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sa320\partightenfactor0
+
+\f1\fs37\fsmilli18667 \cf0 wclk (input): write clock domain clock.
+\f0\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sa320\partightenfactor0
+
+\f1\fs37\fsmilli18667 \cf0 wrst (input): write domain reset.
+\f0\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sa320\partightenfactor0
+
+\f1\fs37\fsmilli18667 \cf0 w_valid (input): write request; w_data is valid.
+\f0\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sa320\partightenfactor0
+
+\f1\fs37\fsmilli18667 \cf0 w_ready (output): FIFO ready to accept write (not full).
+\f0\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sa320\partightenfactor0
+
+\f1\fs37\fsmilli18667 \cf0 w_data[DATA_WIDTH-1:0] (input): data to be written into FIFO.
+\f0\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sa320\partightenfactor0
+
+\f1\fs37\fsmilli18667 \cf0 rclk (input): read clock domain clock.
+\f0\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sa320\partightenfactor0
+
+\f1\fs37\fsmilli18667 \cf0 rrst (input): read domain reset.
+\f0\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sa320\partightenfactor0
+
+\f1\fs37\fsmilli18667 \cf0 r_ready (input): consumer ready to take data.
+\f0\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sa320\partightenfactor0
+
+\f1\fs37\fsmilli18667 \cf0 r_valid (output): FIFO has data available (not empty).
+\f0\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sa320\partightenfactor0
+
+\f1\fs37\fsmilli18667 \cf0 r_data[DATA_WIDTH-1:0] (output): data read from FIFO.
+\f0\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sa320\partightenfactor0
+
+\f1\fs37\fsmilli18667 \cf0 Write happens when: w_valid && w_ready @ posedge wclk
+\f0\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\sa320\partightenfactor0
+
+\f1\fs37\fsmilli18667 \cf0 Read happens when: r_valid && r_ready @ posedge rclk
+\f0\fs24 \cell \lastrow\row
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12180\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 Block Diagram
+\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12180\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+\cf0 {{\NeXTGraphic 1__#$!@%!#__unknown.png \width29760 \height14800 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}¬}\cell \lastrow\row
+\pard\pardeftab720\partightenfactor0
+\cf0 \
+\
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\fs37\fsmilli18667 \cf0 References/Citations
+\fs24 \cell \lastrow\row
+
+\itap1\trowd \taflags1 \trgaph108\trleft-108 \trbrdrt\brdrnil \trbrdrl\brdrnil \trbrdrt\brdrnil \trbrdrr\brdrnil 
+\clvertalt \clshdrawnil \clwWidth12162\clftsWidth3 \clbrdrt\brdrs\brdrw10\brdrcf2 \clbrdrl\brdrs\brdrw10\brdrcf2 \clbrdrb\brdrs\brdrw10\brdrcf2 \clbrdrr\brdrs\brdrw10\brdrcf2 \clpadl144 \clpadr144 \gaph\cellx8640
+\pard\intbl\itap1\pardeftab720\partightenfactor0
+
+\f1\fs37\fsmilli18667 \cf0 Vlsiverify. (2022). Asynchronous FIFO. Retrieved from {\field{\*\fldinst{HYPERLINK "https://vlsiverify.com/verilog/verilog-codes/asynchronous-fifo/"}}{\fldrslt \cf3 https://vlsiverify.com/verilog/verilog-codes/asynchronous-fifo/}}
+\f0 \cf4 \strokec4 \'a0
+\f2\b\fs24 \cf0 \strokec2 \cell \lastrow\row
+\pard\pardeftab720\partightenfactor0
+
+\f0\b0 \cf0 \
+\
+\
+}
