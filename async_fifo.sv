@@ -67,7 +67,7 @@ module async_fifo #(
 		.w_clk  (wclk),
 		.w_en   (w_en),
 		.w_addr (wptr_bin[ADDR_WIDTH-1:0]),
-    	.w_data (w_data),
+    		.w_data (w_data),
 
 		.r_addr (rptr_bin[ADDR_WIDTH-1:0]),
 		.r_data (r_data)
@@ -78,16 +78,16 @@ module async_fifo #(
 	sync_2ff #(.W(PTR_WIDTH)) u_sync_rptr (
 		.clk	(wclk),
 		.rst	(wrst),
-		.d		(rptr_gray),
-		.q		(rptr_gray_wclk)
+		.d	(rptr_gray),
+		.q	(rptr_gray_wclk)
 	);
 	
 	//sync wptr_gray -> rclk domain
 	sync_2ff #(.W(PTR_WIDTH)) u_sync_wptr (
 		.clk	(rclk),
 		.rst	(rrst),
-		.d		(wptr_gray),
-		.q		(wptr_gray_rclk)
+		.d	(wptr_gray),
+		.q	(wptr_gray_rclk)
 	);
 
 	//empty/full next
