@@ -1,0 +1,193 @@
+m255
+K4
+z2
+Z0 !s99 nomlopt
+R0
+R0
+R0
+R0
+!s11f MIXED_VERSIONS
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z1 d/u/liukee/ECE_593/Final/asyncfifo_MS2_Trad
+T_opt
+!s110 1771464202
+VHd54=Eb8398jb?F:YDQO31
+Z2 04 13 4 work tb_async_fifo fast 0
+=1-000ae431a4f1-69966609-92753-1e9ba1
+Z3 !s124 OEM100
+o-quiet -auto_acc_if_foreign -work work
+Z4 tCvgOpt 0
+n@_opt
+Z5 OL;O;2021.3_1;73
+R1
+T_opt1
+!s110 1771464345
+V?K3onhEJ80m=kIIf^NJ@33
+R2
+=1-000ae431a4f1-69966699-307fb-1ea5d6
+R3
+o-quiet -auto_acc_if_foreign -work work +acc
+R4
+n@_opt1
+R5
+R1
+vasync_fifo
+Z6 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+Z7 !s110 1771465267
+!i10b 1
+!s100 E_^ikY@Kc8XBTXCgg`jOo1
+IhX<gNl?^9monAb0KCYNdS1
+S1
+R1
+w1771460417
+8async_fifo.sv
+Fasync_fifo.sv
+!i122 23
+L0 1 128
+Z8 VDg1SIo80bB@j0V0VzS_@n1
+Z9 OL;L;2021.3_1;73
+r1
+!s85 0
+31
+Z10 !s108 1771465267.000000
+!s107 tb_async_fifo.sv|async_fifo.sv|dualport_mem.sv|sync_2ff.sv|async_fifo_package.sv|
+Z11 !s90 -F=/u/liukee/ECE_593/Final/asyncfifo_MS2_Trad/vlog.opt|-F=|-sv|-work|work|-cover|bcsf|async_fifo_package.sv|sync_2ff.sv|dualport_mem.sv|async_fifo.sv|tb_async_fifo.sv|
+!i113 0
+Z12 !s102 -cover bcsf
+Z13 o-sv -work work -cover bcsf -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z14 tCoverage 95 CvgOpt 0
+Xasync_fifo_package
+R6
+R7
+!i10b 1
+!s100 fzmL9gUQM_9Y<QhhcYjij3
+I<ibbYBXcG1fWIe=Bc_MjS0
+S1
+R1
+w1771458615
+8async_fifo_package.sv
+Fasync_fifo_package.sv
+!i122 23
+Z15 L0 1 0
+V<ibbYBXcG1fWIe=Bc_MjS0
+R9
+r1
+!s85 0
+31
+R10
+Z16 !s107 tb_async_fifo.sv|async_fifo.sv|dualport_mem.sv|sync_2ff.sv|async_fifo_package.sv|
+R11
+!i113 0
+R12
+R13
+R14
+vdualport_mem
+R6
+R7
+!i10b 1
+!s100 QzF7<CGLSHzJcDjdFOHhJ3
+I]SzG;E24M<EiWhc4mf@O21
+S1
+R1
+w1771458648
+8dualport_mem.sv
+Fdualport_mem.sv
+!i122 23
+L0 1 31
+R8
+R9
+r1
+!s85 0
+31
+R10
+R16
+R11
+!i113 0
+R12
+R13
+R14
+vsync_2ff
+R6
+Z17 DXx4 work 18 async_fifo_package 0 22 <ibbYBXcG1fWIe=Bc_MjS0
+DXx4 work 16 sync_2ff_sv_unit 0 22 UeaW>0VdQH8j^loz]LY`30
+R7
+R8
+r1
+!s85 0
+!i10b 1
+!s100 W_`>a5UiR5AZV7JVc:oNf1
+I8ZbGQhb3lKFKF=:jS2ZnN3
+!s105 sync_2ff_sv_unit
+S1
+R1
+Z18 w1771459726
+Z19 8sync_2ff.sv
+Z20 Fsync_2ff.sv
+!i122 23
+L0 3 24
+R9
+31
+R10
+R16
+R11
+!i113 0
+R12
+R13
+R14
+Xsync_2ff_sv_unit
+R6
+R17
+R7
+VUeaW>0VdQH8j^loz]LY`30
+r1
+!s85 0
+!i10b 1
+!s100 o`b:6aGGCBaUINF>n5_aT2
+IUeaW>0VdQH8j^loz]LY`30
+!i103 1
+S1
+R1
+R18
+R19
+R20
+!i122 23
+R15
+R9
+31
+R10
+R16
+R11
+!i113 0
+R12
+R13
+R14
+vtb_async_fifo
+R6
+R7
+!i10b 1
+!s100 zR>XGTh1``YMYER8IP;ZB3
+I:4QK:^i1=iUj?15OREXbd3
+S1
+R1
+w1771463946
+8tb_async_fifo.sv
+Ftb_async_fifo.sv
+!i122 23
+L0 3 368
+R8
+R9
+r1
+!s85 0
+31
+R10
+R16
+R11
+!i113 0
+R12
+R13
+R14
