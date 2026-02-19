@@ -5,7 +5,7 @@ module dualport_mem #(
 	//write port
 	input logic w_clk,
 	input logic w_en,
-	input logic [$clog2(DEPTH)-1:0] w_addr,
+	input  logic [$clog2(DEPTH)-1:0] w_addr,
 	input logic [DATA_WIDTH-1:0] w_data,
 
 	//read port(show-head)
