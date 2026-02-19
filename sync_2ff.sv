@@ -1,7 +1,9 @@
-module sync_2ff #(  //A module name like 2ff_sync is illegal in SystemVerilog (identifiers cannot start with a digit).
+import async_fifo_package::*;
+
+module sync_2ff#(  //A module name like 2ff_sync is illegal in SystemVerilog (identifiers cannot start with a digit).
 	parameter int WIDTH = 1
 )(
-	input logic clk, 
+	input logic clk,
 	input logic rst,
 	input logic [WIDTH-1:0] d,
 	output logic [WIDTH-1:0] q
@@ -9,7 +11,7 @@ module sync_2ff #(  //A module name like 2ff_sync is illegal in SystemVerilog (i
 	
 	logic [WIDTH-1:0] ff1, ff2;
 	
-	always_ff @(posedge clk or posedge rst) begin
+	always_ff@ (posedge clk or posedge rst) begin
 		if(rst)begin
 			ff1 <= '0;
 			ff2 <= '0;
