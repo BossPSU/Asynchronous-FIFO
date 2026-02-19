@@ -1,0 +1,43 @@
+Coverage Report Summary Data by file
+
+=================================================================================
+=== File: /u/liukee/ECE_593/Final/asyncfifo_MS2_Trad/async_fifo.sv
+=================================================================================
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Branches                         8         8         0   100.00%
+    Expressions                      6         6         0   100.00%
+    Statements                      25        25         0   100.00%
+    Toggles                        166       134        32    80.72%
+
+=================================================================================
+=== File: /u/liukee/ECE_593/Final/asyncfifo_MS2_Trad/dualport_mem.sv
+=================================================================================
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Branches                         2         2         0   100.00%
+    Statements                       4         4         0   100.00%
+    Toggles                         28        11        17    39.28%
+
+=================================================================================
+=== File: /u/liukee/ECE_593/Final/asyncfifo_MS2_Trad/sync_2ff.sv
+=================================================================================
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Branches                         2         2         0   100.00%
+    Statements                       5         5         0   100.00%
+    Toggles                         30        30         0   100.00%
+
+=================================================================================
+=== File: /u/liukee/ECE_593/Final/asyncfifo_MS2_Trad/tb_async_fifo.sv
+=================================================================================
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Branches                        10         6         4    60.00%
+    Conditions                       7         4         3    57.14%
+    Statements                     113       101        12    89.38%
+    Toggles                         84        35        49    41.66%
+
+
+Total Coverage By File (code coverage only, filtered view): 79.79%
+
