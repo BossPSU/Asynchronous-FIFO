@@ -235,13 +235,40 @@ $display("[oMon] captured READ data=%0d", r_data);
 
     bit [DATA_WIDTH-1:0] exp_q[$];
     int pass_cnt, fail_cnt;
+  
+//functional coverage 
+	int level;     // model FIFO occupancy = exp_q.size()
+    int cov_op;    // 0=push, 1=pop
 
+    covergroup fifo_cg;
+    option.per_instance = 1;
+	
+	coverpoint cov_op {
+    	bins push = {0};
+        bins pop  = {1};
+	}
+
+    coverpoint level {
+        bins zero     = {0};
+        bins one      = {1};
+        bins low      = {[2:3]};
+        bins mid      = {[4:DEPTH/2]};
+        bins high     = {[DEPTH/2+1:DEPTH-2]};
+        bins nearfull = {DEPTH-1};
+        bins full     = {DEPTH};
+      }
+
+	cross cov_op, level;
+    endgroup
+
+	//new()
     function new(mailbox #(bit [DATA_WIDTH-1:0]) inmb,
                  mailbox #(bit [DATA_WIDTH-1:0]) outmb);
-      in_mb  = inmb;
-      out_mb = outmb;
-      pass_cnt = 0;
-      fail_cnt = 0;
+		in_mb  = inmb;
+      	out_mb = outmb;
+     	pass_cnt = 0;
+     	fail_cnt = 0;
+		fifo_cg = new();
     endfunction
 
     task run();
@@ -250,8 +277,12 @@ $display("[oMon] captured READ data=%0d", r_data);
       fork
         // collect expected (writes)
         forever begin
-          in_mb.get(d);
-          exp_q.push_back(d);
+        	in_mb.get(d);
+        	exp_q.push_back(d);
+
+			cov_op = 0; //push
+			level = exp_q.size();
+			fifo_cg.sample();
         end
 
         // check actual (reads)
@@ -264,6 +295,9 @@ $display("[oMon] captured READ data=%0d", r_data);
             fail_cnt++;
           end else begin
             exp = exp_q.pop_front();
+			cov_op = 1; //pop
+			level = exp_q.size();
+			fifo_cg.sample();
 
 $display("SB CHECK exp=%0d got=%0d", exp, got);
 
