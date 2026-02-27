@@ -1,0 +1,5 @@
+uvm/
+  fifo_uvm_pkg.sv
+  fifo_items.sv
+  fifo_sequences.sv
+  fifo_tests.sv
