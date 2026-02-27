@@ -1,5 +1,5 @@
 # vsim -c -voptargs="+acc" -onfinish stop work.fifo_tb_top "+UVM_TESTNAME=fifo_fill_drain_test" "+UVM_VERBOSITY=UVM_MEDIUM" -l logs/fifo_fill_drain_test.log 
-# Start time: 13:54:57 on Feb 27,2026
+# Start time: 14:55:22 on Feb 27,2026
 # ** Note: (vsim-8009) Loading existing optimized design _opt
 # Loading sv_std.std
 # Loading work.fifo_if(fast)
@@ -40,46 +40,50 @@
 # UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(278) @ 0: reporter [Questa UVM]  questa_uvm::init(+struct)
 # UVM_INFO @ 0: reporter [RNTST] Running test fifo_fill_drain_test...
 # UVM_INFO UVM/fifo_tests.sv(23) @ 0: uvm_test_top [fifo_fill_drain_test] Base test build_phase done
-# UVM_INFO UVM/fifo_env.sv(38) @ 0: uvm_test_top.env [fifo_env] fifo_env build_phase complete
+# UVM_INFO UVM/fifo_env.sv(40) @ 0: uvm_test_top.env [fifo_env] fifo_env build_phase complete
+# UVM_INFO UVM/fifo_coverage.sv(109) @ 0: uvm_test_top.env.cov [fifo_coverage] Coverage collector built
 # UVM_INFO UVM/fifo_agents.sv(98) @ 0: uvm_test_top.env.rd_agent [fifo_rd_agent] ACTIVE read agent created
 # UVM_INFO UVM/fifo_agents.sv(99) @ 0: uvm_test_top.env.rd_agent [fifo_rd_agent] PASSIVE read agent created (monitor only)
-# UVM_INFO UVM/fifo_scoreboard.sv(55) @ 0: uvm_test_top.env.sb [fifo_scoreboard] Scoreboard build_phase complete
+# UVM_INFO UVM/fifo_scoreboard.sv(52) @ 0: uvm_test_top.env.sb [fifo_scoreboard] Scoreboard build_phase complete
 # UVM_INFO UVM/fifo_agents.sv(40) @ 0: uvm_test_top.env.wr_agent [fifo_wr_agent] ACTIVE write agent created
-# UVM_INFO UVM/fifo_env.sv(48) @ 0: uvm_test_top.env [fifo_env] fifo_env connect_phase complete
-# UVM_INFO UVM/fifo_env.sv(55) @ 0: uvm_test_top.env [fifo_env] UVM Hierarchy:
+# UVM_INFO UVM/fifo_env.sv(51) @ 0: uvm_test_top.env [fifo_env] fifo_env connect_phase complete
+# UVM_INFO UVM/fifo_env.sv(58) @ 0: uvm_test_top.env [fifo_env] UVM Hierarchy:
 # UVM_INFO @ 0: reporter [UVMTOP] UVM testbench topology:
 # --------------------------------------------------------------
 # Name                       Type                    Size  Value
 # --------------------------------------------------------------
 # uvm_test_top               fifo_fill_drain_test    -     @472 
 #   env                      fifo_env                -     @479 
+#     cov                    fifo_coverage           -     @512 
+#       analysis_imp         uvm_analysis_imp        -     @519 
+#       rd_export            uvm_analysis_imp_rd     -     @527 
 #     rd_agent               fifo_rd_agent           -     @498 
-#       rd_ap                uvm_analysis_port       -     @520 
-#       rd_drv               fifo_rd_driver          -     @637 
-#         rsp_port           uvm_analysis_port       -     @652 
-#         seq_item_port      uvm_seq_item_pull_port  -     @644 
-#       rd_mon               fifo_rd_monitor         -     @513 
-#         rd_ap              uvm_analysis_port       -     @661 
-#       rd_seqr              uvm_sequencer           -     @528 
-#         rsp_export         uvm_analysis_export     -     @535 
-#         seq_item_export    uvm_seq_item_pull_imp   -     @629 
+#       rd_ap                uvm_analysis_port       -     @543 
+#       rd_drv               fifo_rd_driver          -     @660 
+#         rsp_port           uvm_analysis_port       -     @675 
+#         seq_item_port      uvm_seq_item_pull_port  -     @667 
+#       rd_mon               fifo_rd_monitor         -     @536 
+#         rd_ap              uvm_analysis_port       -     @684 
+#       rd_seqr              uvm_sequencer           -     @551 
+#         rsp_export         uvm_analysis_export     -     @558 
+#         seq_item_export    uvm_seq_item_pull_imp   -     @652 
 #         arbitration_queue  array                   0     -    
 #         lock_queue         array                   0     -    
 #         num_last_reqs      integral                32    'd1  
 #         num_last_rsps      integral                32    'd1  
 #     sb                     fifo_scoreboard         -     @505 
-#       rd_ap                uvm_analysis_imp_rd     -     @683 
-#       wr_ap                uvm_analysis_imp_wr     -     @675 
+#       rd_ap                uvm_analysis_imp_rd     -     @706 
+#       wr_ap                uvm_analysis_imp_wr     -     @698 
 #     wr_agent               fifo_wr_agent           -     @491 
-#       wr_ap                uvm_analysis_port       -     @699 
-#       wr_drv               fifo_wr_driver          -     @816 
-#         rsp_port           uvm_analysis_port       -     @831 
-#         seq_item_port      uvm_seq_item_pull_port  -     @823 
-#       wr_mon               fifo_wr_monitor         -     @692 
-#         wr_ap              uvm_analysis_port       -     @840 
-#       wr_seqr              uvm_sequencer           -     @707 
-#         rsp_export         uvm_analysis_export     -     @714 
-#         seq_item_export    uvm_seq_item_pull_imp   -     @808 
+#       wr_ap                uvm_analysis_port       -     @722 
+#       wr_drv               fifo_wr_driver          -     @839 
+#         rsp_port           uvm_analysis_port       -     @854 
+#         seq_item_port      uvm_seq_item_pull_port  -     @846 
+#       wr_mon               fifo_wr_monitor         -     @715 
+#         wr_ap              uvm_analysis_port       -     @863 
+#       wr_seqr              uvm_sequencer           -     @730 
+#         rsp_export         uvm_analysis_export     -     @737 
+#         seq_item_export    uvm_seq_item_pull_imp   -     @831 
 #         arbitration_queue  array                   0     -    
 #         lock_queue         array                   0     -    
 #         num_last_reqs      integral                32    'd1  
@@ -128,71 +132,75 @@
 # UVM_INFO UVM/fifo_sequences.sv(72) @ 205000: uvm_test_top.env.wr_agent.wr_seqr@@fill [SEQ_FILL] Fill sequence complete
 # UVM_INFO UVM/fifo_sequences.sv(152) @ 205050: uvm_test_top.env.rd_agent.rd_seqr@@drain [SEQ_DRAIN] Draining FIFO – 16 reads
 # UVM_INFO UVM/fifo_rd_driver.sv(54) @ 220110: uvm_test_top.env.rd_agent.rd_drv [RD_DRV] [220110] Read request sent  total_txn=1
-# UVM_INFO UVM/fifo_scoreboard.sv(87) @ 220110: uvm_test_top.env.sb [SB_PASS] [220110] PASS rd#1  exp=0x00  got=0x00
+# UVM_INFO UVM/fifo_scoreboard.sv(84) @ 220110: uvm_test_top.env.sb [SB_PASS] [220110] PASS rd#1  exp=0x00  got=0x00
 # UVM_INFO UVM/fifo_rd_monitor.sv(66) @ 220110: uvm_test_top.env.rd_agent.rd_mon [RD_MON] [220110] Captured: RD r_valid=1 r_data=0x00 (0)  [obs#1]
 # UVM_INFO UVM/fifo_rd_driver.sv(54) @ 246790: uvm_test_top.env.rd_agent.rd_drv [RD_DRV] [246790] Read request sent  total_txn=2
-# UVM_INFO UVM/fifo_scoreboard.sv(87) @ 246790: uvm_test_top.env.sb [SB_PASS] [246790] PASS rd#2  exp=0x01  got=0x01
+# UVM_INFO UVM/fifo_scoreboard.sv(84) @ 246790: uvm_test_top.env.sb [SB_PASS] [246790] PASS rd#2  exp=0x01  got=0x01
 # UVM_INFO UVM/fifo_rd_monitor.sv(66) @ 246790: uvm_test_top.env.rd_agent.rd_mon [RD_MON] [246790] Captured: RD r_valid=1 r_data=0x01 (1)  [obs#2]
 # UVM_INFO UVM/fifo_rd_driver.sv(54) @ 273470: uvm_test_top.env.rd_agent.rd_drv [RD_DRV] [273470] Read request sent  total_txn=3
-# UVM_INFO UVM/fifo_scoreboard.sv(87) @ 273470: uvm_test_top.env.sb [SB_PASS] [273470] PASS rd#3  exp=0x02  got=0x02
+# UVM_INFO UVM/fifo_scoreboard.sv(84) @ 273470: uvm_test_top.env.sb [SB_PASS] [273470] PASS rd#3  exp=0x02  got=0x02
 # UVM_INFO UVM/fifo_rd_monitor.sv(66) @ 273470: uvm_test_top.env.rd_agent.rd_mon [RD_MON] [273470] Captured: RD r_valid=1 r_data=0x02 (2)  [obs#3]
 # UVM_INFO UVM/fifo_rd_driver.sv(54) @ 300150: uvm_test_top.env.rd_agent.rd_drv [RD_DRV] [300150] Read request sent  total_txn=4
-# UVM_INFO UVM/fifo_scoreboard.sv(87) @ 300150: uvm_test_top.env.sb [SB_PASS] [300150] PASS rd#4  exp=0x03  got=0x03
+# UVM_INFO UVM/fifo_scoreboard.sv(84) @ 300150: uvm_test_top.env.sb [SB_PASS] [300150] PASS rd#4  exp=0x03  got=0x03
 # UVM_INFO UVM/fifo_rd_monitor.sv(66) @ 300150: uvm_test_top.env.rd_agent.rd_mon [RD_MON] [300150] Captured: RD r_valid=1 r_data=0x03 (3)  [obs#4]
 # UVM_INFO UVM/fifo_rd_driver.sv(54) @ 326830: uvm_test_top.env.rd_agent.rd_drv [RD_DRV] [326830] Read request sent  total_txn=5
-# UVM_INFO UVM/fifo_scoreboard.sv(87) @ 326830: uvm_test_top.env.sb [SB_PASS] [326830] PASS rd#5  exp=0x04  got=0x04
+# UVM_INFO UVM/fifo_scoreboard.sv(84) @ 326830: uvm_test_top.env.sb [SB_PASS] [326830] PASS rd#5  exp=0x04  got=0x04
 # UVM_INFO UVM/fifo_rd_monitor.sv(66) @ 326830: uvm_test_top.env.rd_agent.rd_mon [RD_MON] [326830] Captured: RD r_valid=1 r_data=0x04 (4)  [obs#5]
 # UVM_INFO UVM/fifo_rd_driver.sv(54) @ 353510: uvm_test_top.env.rd_agent.rd_drv [RD_DRV] [353510] Read request sent  total_txn=6
-# UVM_INFO UVM/fifo_scoreboard.sv(87) @ 353510: uvm_test_top.env.sb [SB_PASS] [353510] PASS rd#6  exp=0x05  got=0x05
+# UVM_INFO UVM/fifo_scoreboard.sv(84) @ 353510: uvm_test_top.env.sb [SB_PASS] [353510] PASS rd#6  exp=0x05  got=0x05
 # UVM_INFO UVM/fifo_rd_monitor.sv(66) @ 353510: uvm_test_top.env.rd_agent.rd_mon [RD_MON] [353510] Captured: RD r_valid=1 r_data=0x05 (5)  [obs#6]
 # UVM_INFO UVM/fifo_rd_driver.sv(54) @ 380190: uvm_test_top.env.rd_agent.rd_drv [RD_DRV] [380190] Read request sent  total_txn=7
-# UVM_INFO UVM/fifo_scoreboard.sv(87) @ 380190: uvm_test_top.env.sb [SB_PASS] [380190] PASS rd#7  exp=0x06  got=0x06
+# UVM_INFO UVM/fifo_scoreboard.sv(84) @ 380190: uvm_test_top.env.sb [SB_PASS] [380190] PASS rd#7  exp=0x06  got=0x06
 # UVM_INFO UVM/fifo_rd_monitor.sv(66) @ 380190: uvm_test_top.env.rd_agent.rd_mon [RD_MON] [380190] Captured: RD r_valid=1 r_data=0x06 (6)  [obs#7]
 # UVM_INFO UVM/fifo_rd_driver.sv(54) @ 406870: uvm_test_top.env.rd_agent.rd_drv [RD_DRV] [406870] Read request sent  total_txn=8
-# UVM_INFO UVM/fifo_scoreboard.sv(87) @ 406870: uvm_test_top.env.sb [SB_PASS] [406870] PASS rd#8  exp=0x07  got=0x07
+# UVM_INFO UVM/fifo_scoreboard.sv(84) @ 406870: uvm_test_top.env.sb [SB_PASS] [406870] PASS rd#8  exp=0x07  got=0x07
 # UVM_INFO UVM/fifo_rd_monitor.sv(66) @ 406870: uvm_test_top.env.rd_agent.rd_mon [RD_MON] [406870] Captured: RD r_valid=1 r_data=0x07 (7)  [obs#8]
 # UVM_INFO UVM/fifo_rd_driver.sv(54) @ 433550: uvm_test_top.env.rd_agent.rd_drv [RD_DRV] [433550] Read request sent  total_txn=9
-# UVM_INFO UVM/fifo_scoreboard.sv(87) @ 433550: uvm_test_top.env.sb [SB_PASS] [433550] PASS rd#9  exp=0x08  got=0x08
+# UVM_INFO UVM/fifo_scoreboard.sv(84) @ 433550: uvm_test_top.env.sb [SB_PASS] [433550] PASS rd#9  exp=0x08  got=0x08
 # UVM_INFO UVM/fifo_rd_monitor.sv(66) @ 433550: uvm_test_top.env.rd_agent.rd_mon [RD_MON] [433550] Captured: RD r_valid=1 r_data=0x08 (8)  [obs#9]
 # UVM_INFO UVM/fifo_rd_driver.sv(54) @ 460230: uvm_test_top.env.rd_agent.rd_drv [RD_DRV] [460230] Read request sent  total_txn=10
-# UVM_INFO UVM/fifo_scoreboard.sv(87) @ 460230: uvm_test_top.env.sb [SB_PASS] [460230] PASS rd#10  exp=0x09  got=0x09
+# UVM_INFO UVM/fifo_scoreboard.sv(84) @ 460230: uvm_test_top.env.sb [SB_PASS] [460230] PASS rd#10  exp=0x09  got=0x09
 # UVM_INFO UVM/fifo_rd_monitor.sv(66) @ 460230: uvm_test_top.env.rd_agent.rd_mon [RD_MON] [460230] Captured: RD r_valid=1 r_data=0x09 (9)  [obs#10]
 # UVM_INFO UVM/fifo_rd_driver.sv(54) @ 486910: uvm_test_top.env.rd_agent.rd_drv [RD_DRV] [486910] Read request sent  total_txn=11
-# UVM_INFO UVM/fifo_scoreboard.sv(87) @ 486910: uvm_test_top.env.sb [SB_PASS] [486910] PASS rd#11  exp=0x0a  got=0x0a
+# UVM_INFO UVM/fifo_scoreboard.sv(84) @ 486910: uvm_test_top.env.sb [SB_PASS] [486910] PASS rd#11  exp=0x0a  got=0x0a
 # UVM_INFO UVM/fifo_rd_monitor.sv(66) @ 486910: uvm_test_top.env.rd_agent.rd_mon [RD_MON] [486910] Captured: RD r_valid=1 r_data=0x0a (10)  [obs#11]
 # UVM_INFO UVM/fifo_rd_driver.sv(54) @ 513590: uvm_test_top.env.rd_agent.rd_drv [RD_DRV] [513590] Read request sent  total_txn=12
-# UVM_INFO UVM/fifo_scoreboard.sv(87) @ 513590: uvm_test_top.env.sb [SB_PASS] [513590] PASS rd#12  exp=0x0b  got=0x0b
+# UVM_INFO UVM/fifo_scoreboard.sv(84) @ 513590: uvm_test_top.env.sb [SB_PASS] [513590] PASS rd#12  exp=0x0b  got=0x0b
 # UVM_INFO UVM/fifo_rd_monitor.sv(66) @ 513590: uvm_test_top.env.rd_agent.rd_mon [RD_MON] [513590] Captured: RD r_valid=1 r_data=0x0b (11)  [obs#12]
 # UVM_INFO UVM/fifo_rd_driver.sv(54) @ 540270: uvm_test_top.env.rd_agent.rd_drv [RD_DRV] [540270] Read request sent  total_txn=13
-# UVM_INFO UVM/fifo_scoreboard.sv(87) @ 540270: uvm_test_top.env.sb [SB_PASS] [540270] PASS rd#13  exp=0x0c  got=0x0c
+# UVM_INFO UVM/fifo_scoreboard.sv(84) @ 540270: uvm_test_top.env.sb [SB_PASS] [540270] PASS rd#13  exp=0x0c  got=0x0c
 # UVM_INFO UVM/fifo_rd_monitor.sv(66) @ 540270: uvm_test_top.env.rd_agent.rd_mon [RD_MON] [540270] Captured: RD r_valid=1 r_data=0x0c (12)  [obs#13]
 # UVM_INFO UVM/fifo_rd_driver.sv(54) @ 566950: uvm_test_top.env.rd_agent.rd_drv [RD_DRV] [566950] Read request sent  total_txn=14
-# UVM_INFO UVM/fifo_scoreboard.sv(87) @ 566950: uvm_test_top.env.sb [SB_PASS] [566950] PASS rd#14  exp=0x0d  got=0x0d
+# UVM_INFO UVM/fifo_scoreboard.sv(84) @ 566950: uvm_test_top.env.sb [SB_PASS] [566950] PASS rd#14  exp=0x0d  got=0x0d
 # UVM_INFO UVM/fifo_rd_monitor.sv(66) @ 566950: uvm_test_top.env.rd_agent.rd_mon [RD_MON] [566950] Captured: RD r_valid=1 r_data=0x0d (13)  [obs#14]
 # UVM_INFO UVM/fifo_rd_driver.sv(54) @ 593630: uvm_test_top.env.rd_agent.rd_drv [RD_DRV] [593630] Read request sent  total_txn=15
-# UVM_INFO UVM/fifo_scoreboard.sv(87) @ 593630: uvm_test_top.env.sb [SB_PASS] [593630] PASS rd#15  exp=0x0e  got=0x0e
+# UVM_INFO UVM/fifo_scoreboard.sv(84) @ 593630: uvm_test_top.env.sb [SB_PASS] [593630] PASS rd#15  exp=0x0e  got=0x0e
 # UVM_INFO UVM/fifo_rd_monitor.sv(66) @ 593630: uvm_test_top.env.rd_agent.rd_mon [RD_MON] [593630] Captured: RD r_valid=1 r_data=0x0e (14)  [obs#15]
 # UVM_INFO UVM/fifo_rd_driver.sv(54) @ 620310: uvm_test_top.env.rd_agent.rd_drv [RD_DRV] [620310] Read request sent  total_txn=16
-# UVM_INFO UVM/fifo_scoreboard.sv(87) @ 620310: uvm_test_top.env.sb [SB_PASS] [620310] PASS rd#16  exp=0x0f  got=0x0f
+# UVM_INFO UVM/fifo_scoreboard.sv(84) @ 620310: uvm_test_top.env.sb [SB_PASS] [620310] PASS rd#16  exp=0x0f  got=0x0f
 # UVM_INFO UVM/fifo_rd_monitor.sv(66) @ 620310: uvm_test_top.env.rd_agent.rd_mon [RD_MON] [620310] Captured: RD r_valid=1 r_data=0x0f (15)  [obs#16]
 # UVM_INFO UVM/fifo_sequences.sv(160) @ 620310: uvm_test_top.env.rd_agent.rd_seqr@@drain [SEQ_DRAIN] Drain sequence complete
 # UVM_INFO UVM/fifo_tests.sv(101) @ 620310: uvm_test_top [FILL_DRAIN] Fill/drain test complete
 # UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_objection.svh(1267) @ 620310: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
-# UVM_INFO UVM/fifo_scoreboard.sv(106) @ 620310: uvm_test_top.env.sb [fifo_scoreboard] Shadow queue is empty at end of test – all writes were read back
+# UVM_INFO UVM/fifo_scoreboard.sv(103) @ 620310: uvm_test_top.env.sb [fifo_scoreboard] Shadow queue is empty at end of test – all writes were read back
+# UVM_INFO UVM/fifo_coverage.sv(154) @ 620310: uvm_test_top.env.cov [fifo_coverage] Write  coverage: 36.5%
+# UVM_INFO UVM/fifo_coverage.sv(155) @ 620310: uvm_test_top.env.cov [fifo_coverage] Read   coverage: 58.3%
+# UVM_INFO UVM/fifo_coverage.sv(156) @ 620310: uvm_test_top.env.cov [fifo_coverage] Flag   coverage: 85.0%
+# UVM_INFO UVM/fifo_coverage.sv(157) @ 620310: uvm_test_top.env.cov [fifo_coverage] Overall coverage: 59.9%
 # UVM_INFO UVM/fifo_rd_driver.sv(79) @ 620310: uvm_test_top.env.rd_agent.rd_drv [fifo_rd_driver] Read driver finished – transactions driven: 16
 # UVM_INFO UVM/fifo_rd_monitor.sv(75) @ 620310: uvm_test_top.env.rd_agent.rd_mon [fifo_rd_monitor] Read monitor summary: observed=16  empty_stalls=0
 # UVM_INFO UVM/fifo_agents.sv(112) @ 620310: uvm_test_top.env.rd_agent [fifo_rd_agent] Read agent done. Active=YES
-# UVM_INFO UVM/fifo_scoreboard.sv(115) @ 620310: uvm_test_top.env.sb [fifo_scoreboard] ============================================================
-# UVM_INFO UVM/fifo_scoreboard.sv(116) @ 620310: uvm_test_top.env.sb [fifo_scoreboard]   SCOREBOARD SUMMARY
-# UVM_INFO UVM/fifo_scoreboard.sv(117) @ 620310: uvm_test_top.env.sb [fifo_scoreboard] ============================================================
-# UVM_INFO UVM/fifo_scoreboard.sv(118) @ 620310: uvm_test_top.env.sb [fifo_scoreboard]   Writes observed  : 16
-# UVM_INFO UVM/fifo_scoreboard.sv(119) @ 620310: uvm_test_top.env.sb [fifo_scoreboard]   Reads  observed  : 16
-# UVM_INFO UVM/fifo_scoreboard.sv(120) @ 620310: uvm_test_top.env.sb [fifo_scoreboard]   PASSes           : 16
-# UVM_INFO UVM/fifo_scoreboard.sv(121) @ 620310: uvm_test_top.env.sb [fifo_scoreboard]   FAILs            : 0
-# UVM_INFO UVM/fifo_scoreboard.sv(122) @ 620310: uvm_test_top.env.sb [fifo_scoreboard]   Underflows       : 0
-# UVM_INFO UVM/fifo_scoreboard.sv(123) @ 620310: uvm_test_top.env.sb [fifo_scoreboard] ============================================================
-# UVM_INFO UVM/fifo_scoreboard.sv(126) @ 620310: uvm_test_top.env.sb [fifo_scoreboard]   ** TEST PASSED **
-# UVM_INFO UVM/fifo_scoreboard.sv(130) @ 620310: uvm_test_top.env.sb [fifo_scoreboard] ============================================================
+# UVM_INFO UVM/fifo_scoreboard.sv(112) @ 620310: uvm_test_top.env.sb [fifo_scoreboard] ============================================================
+# UVM_INFO UVM/fifo_scoreboard.sv(113) @ 620310: uvm_test_top.env.sb [fifo_scoreboard]   SCOREBOARD SUMMARY
+# UVM_INFO UVM/fifo_scoreboard.sv(114) @ 620310: uvm_test_top.env.sb [fifo_scoreboard] ============================================================
+# UVM_INFO UVM/fifo_scoreboard.sv(115) @ 620310: uvm_test_top.env.sb [fifo_scoreboard]   Writes observed  : 16
+# UVM_INFO UVM/fifo_scoreboard.sv(116) @ 620310: uvm_test_top.env.sb [fifo_scoreboard]   Reads  observed  : 16
+# UVM_INFO UVM/fifo_scoreboard.sv(117) @ 620310: uvm_test_top.env.sb [fifo_scoreboard]   PASSes           : 16
+# UVM_INFO UVM/fifo_scoreboard.sv(118) @ 620310: uvm_test_top.env.sb [fifo_scoreboard]   FAILs            : 0
+# UVM_INFO UVM/fifo_scoreboard.sv(119) @ 620310: uvm_test_top.env.sb [fifo_scoreboard]   Underflows       : 0
+# UVM_INFO UVM/fifo_scoreboard.sv(120) @ 620310: uvm_test_top.env.sb [fifo_scoreboard] ============================================================
+# UVM_INFO UVM/fifo_scoreboard.sv(123) @ 620310: uvm_test_top.env.sb [fifo_scoreboard]   ** TEST PASSED **
+# UVM_INFO UVM/fifo_scoreboard.sv(127) @ 620310: uvm_test_top.env.sb [fifo_scoreboard] ============================================================
 # UVM_INFO UVM/fifo_wr_driver.sv(91) @ 620310: uvm_test_top.env.wr_agent.wr_drv [fifo_wr_driver] Write driver finished – transactions driven: 16
 # UVM_INFO UVM/fifo_wr_monitor.sv(77) @ 620310: uvm_test_top.env.wr_agent.wr_mon [fifo_wr_monitor] Write monitor summary: observed=16  write_stalls=0
 # UVM_INFO UVM/fifo_agents.sv(60) @ 620310: uvm_test_top.env.wr_agent [fifo_wr_agent] Write agent done. Active=YES
@@ -200,7 +208,7 @@
 # --- UVM Report Summary ---
 # 
 # ** Report counts by severity
-# UVM_INFO :  122
+# UVM_INFO :  127
 # UVM_WARNING :    0
 # UVM_ERROR :    0
 # UVM_FATAL :    0
@@ -218,6 +226,7 @@
 # [UVMTOP]     1
 # [WR_DRV]    16
 # [WR_MON]    16
+# [fifo_coverage]     5
 # [fifo_env]     3
 # [fifo_fill_drain_test]     1
 # [fifo_rd_agent]     3
@@ -231,7 +240,7 @@
 #    Time: 620310 ps  Iteration: 64  Instance: /fifo_tb_top
 # Break in Task uvm_pkg/uvm_root::run_test at /pkgs/mentor/questa/2021.3_1/questasim/linux_x86_64/../verilog_src/uvm-1.1d/src/base/uvm_root.svh line 430
 # Stopped at /pkgs/mentor/questa/2021.3_1/questasim/linux_x86_64/../verilog_src/uvm-1.1d/src/base/uvm_root.svh line 430
-# End time: 13:54:58 on Feb 27,2026, Elapsed time: 0:00:01
+# End time: 14:55:23 on Feb 27,2026, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 0
 # ========================================
 # RUNNING: fifo_overflow_test

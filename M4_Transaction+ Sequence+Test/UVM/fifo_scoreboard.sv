@@ -15,9 +15,6 @@
 //   UVM_HIGH   – shadow queue depth updates, debug info
 // ============================================================
 
-`uvm_analysis_imp_decl(_wr)
-`uvm_analysis_imp_decl(_rd)
-
 class fifo_scoreboard extends uvm_scoreboard;
 
     	`uvm_component_utils(fifo_scoreboard)

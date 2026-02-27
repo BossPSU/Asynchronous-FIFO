@@ -16,6 +16,7 @@ class fifo_env extends uvm_env;
     	fifo_wr_agent    wr_agent;
     	fifo_rd_agent    rd_agent;
     	fifo_scoreboard  sb;
+    	fifo_coverage 	 cov;
 
     	function new(string name = "fifo_env", uvm_component parent = null);
         	super.new(name, parent);
@@ -33,6 +34,7 @@ class fifo_env extends uvm_env;
         	wr_agent = fifo_wr_agent::type_id::create("wr_agent", this);
         	rd_agent = fifo_rd_agent::type_id::create("rd_agent", this);
         	sb       = fifo_scoreboard::type_id::create("sb",       this);
+        	cov = fifo_coverage::type_id::create("cov", this);
 	
  
         	`uvm_info(get_type_name(), "fifo_env build_phase complete", UVM_MEDIUM)
@@ -44,7 +46,8 @@ class fifo_env extends uvm_env;
     	function void connect_phase(uvm_phase phase);
         	wr_agent.wr_ap.connect(sb.wr_ap);
         	rd_agent.rd_ap.connect(sb.rd_ap);
-	
+		wr_agent.wr_ap.connect(cov.analysis_export);  // write transactions
+		rd_agent.rd_ap.connect(cov.rd_export);         // read transactions
         	`uvm_info(get_type_name(), "fifo_env connect_phase complete", UVM_MEDIUM)
     	endfunction
 

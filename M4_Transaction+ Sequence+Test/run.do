@@ -18,7 +18,7 @@ vlog -sv -work work \
     +incdir+UVM \
     UVM/fifo_if.sv \
     UVM/fifo_uvm_package.sv \
-    UVM/fifo_tb_top.sv
+    UVM/fifo_tb_top.sv 
 
 # ── Run all tests ─────────────────────────────────────────────
 foreach test {

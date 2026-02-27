@@ -1,5 +1,5 @@
 # vsim -c -voptargs="+acc" -onfinish stop work.fifo_tb_top "+UVM_TESTNAME=fifo_rand_test" "+UVM_VERBOSITY=UVM_MEDIUM" -l logs/fifo_rand_test.log 
-# Start time: 13:55:01 on Feb 27,2026
+# Start time: 14:55:26 on Feb 27,2026
 # ** Note: (vsim-8009) Loading existing optimized design _opt
 # Loading sv_std.std
 # Loading work.fifo_if(fast)
@@ -40,46 +40,50 @@
 # UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(278) @ 0: reporter [Questa UVM]  questa_uvm::init(+struct)
 # UVM_INFO @ 0: reporter [RNTST] Running test fifo_rand_test...
 # UVM_INFO UVM/fifo_tests.sv(23) @ 0: uvm_test_top [fifo_rand_test] Base test build_phase done
-# UVM_INFO UVM/fifo_env.sv(38) @ 0: uvm_test_top.env [fifo_env] fifo_env build_phase complete
+# UVM_INFO UVM/fifo_env.sv(40) @ 0: uvm_test_top.env [fifo_env] fifo_env build_phase complete
+# UVM_INFO UVM/fifo_coverage.sv(109) @ 0: uvm_test_top.env.cov [fifo_coverage] Coverage collector built
 # UVM_INFO UVM/fifo_agents.sv(98) @ 0: uvm_test_top.env.rd_agent [fifo_rd_agent] ACTIVE read agent created
 # UVM_INFO UVM/fifo_agents.sv(99) @ 0: uvm_test_top.env.rd_agent [fifo_rd_agent] PASSIVE read agent created (monitor only)
-# UVM_INFO UVM/fifo_scoreboard.sv(55) @ 0: uvm_test_top.env.sb [fifo_scoreboard] Scoreboard build_phase complete
+# UVM_INFO UVM/fifo_scoreboard.sv(52) @ 0: uvm_test_top.env.sb [fifo_scoreboard] Scoreboard build_phase complete
 # UVM_INFO UVM/fifo_agents.sv(40) @ 0: uvm_test_top.env.wr_agent [fifo_wr_agent] ACTIVE write agent created
-# UVM_INFO UVM/fifo_env.sv(48) @ 0: uvm_test_top.env [fifo_env] fifo_env connect_phase complete
-# UVM_INFO UVM/fifo_env.sv(55) @ 0: uvm_test_top.env [fifo_env] UVM Hierarchy:
+# UVM_INFO UVM/fifo_env.sv(51) @ 0: uvm_test_top.env [fifo_env] fifo_env connect_phase complete
+# UVM_INFO UVM/fifo_env.sv(58) @ 0: uvm_test_top.env [fifo_env] UVM Hierarchy:
 # UVM_INFO @ 0: reporter [UVMTOP] UVM testbench topology:
 # --------------------------------------------------------------
 # Name                       Type                    Size  Value
 # --------------------------------------------------------------
 # uvm_test_top               fifo_rand_test          -     @472 
 #   env                      fifo_env                -     @479 
+#     cov                    fifo_coverage           -     @512 
+#       analysis_imp         uvm_analysis_imp        -     @519 
+#       rd_export            uvm_analysis_imp_rd     -     @527 
 #     rd_agent               fifo_rd_agent           -     @498 
-#       rd_ap                uvm_analysis_port       -     @520 
-#       rd_drv               fifo_rd_driver          -     @637 
-#         rsp_port           uvm_analysis_port       -     @652 
-#         seq_item_port      uvm_seq_item_pull_port  -     @644 
-#       rd_mon               fifo_rd_monitor         -     @513 
-#         rd_ap              uvm_analysis_port       -     @661 
-#       rd_seqr              uvm_sequencer           -     @528 
-#         rsp_export         uvm_analysis_export     -     @535 
-#         seq_item_export    uvm_seq_item_pull_imp   -     @629 
+#       rd_ap                uvm_analysis_port       -     @543 
+#       rd_drv               fifo_rd_driver          -     @660 
+#         rsp_port           uvm_analysis_port       -     @675 
+#         seq_item_port      uvm_seq_item_pull_port  -     @667 
+#       rd_mon               fifo_rd_monitor         -     @536 
+#         rd_ap              uvm_analysis_port       -     @684 
+#       rd_seqr              uvm_sequencer           -     @551 
+#         rsp_export         uvm_analysis_export     -     @558 
+#         seq_item_export    uvm_seq_item_pull_imp   -     @652 
 #         arbitration_queue  array                   0     -    
 #         lock_queue         array                   0     -    
 #         num_last_reqs      integral                32    'd1  
 #         num_last_rsps      integral                32    'd1  
 #     sb                     fifo_scoreboard         -     @505 
-#       rd_ap                uvm_analysis_imp_rd     -     @683 
-#       wr_ap                uvm_analysis_imp_wr     -     @675 
+#       rd_ap                uvm_analysis_imp_rd     -     @706 
+#       wr_ap                uvm_analysis_imp_wr     -     @698 
 #     wr_agent               fifo_wr_agent           -     @491 
-#       wr_ap                uvm_analysis_port       -     @699 
-#       wr_drv               fifo_wr_driver          -     @816 
-#         rsp_port           uvm_analysis_port       -     @831 
-#         seq_item_port      uvm_seq_item_pull_port  -     @823 
-#       wr_mon               fifo_wr_monitor         -     @692 
-#         wr_ap              uvm_analysis_port       -     @840 
-#       wr_seqr              uvm_sequencer           -     @707 
-#         rsp_export         uvm_analysis_export     -     @714 
-#         seq_item_export    uvm_seq_item_pull_imp   -     @808 
+#       wr_ap                uvm_analysis_port       -     @722 
+#       wr_drv               fifo_wr_driver          -     @839 
+#         rsp_port           uvm_analysis_port       -     @854 
+#         seq_item_port      uvm_seq_item_pull_port  -     @846 
+#       wr_mon               fifo_wr_monitor         -     @715 
+#         wr_ap              uvm_analysis_port       -     @863 
+#       wr_seqr              uvm_sequencer           -     @730 
+#         rsp_export         uvm_analysis_export     -     @737 
+#         seq_item_export    uvm_seq_item_pull_imp   -     @831 
 #         arbitration_queue  array                   0     -    
 #         lock_queue         array                   0     -    
 #         num_last_reqs      integral                32    'd1  
@@ -130,7 +134,7 @@
 # --- UVM Report Summary ---
 # 
 # ** Report counts by severity
-# UVM_INFO :   51
+# UVM_INFO :   52
 # UVM_WARNING :    0
 # UVM_ERROR :    0
 # UVM_FATAL :    1
@@ -144,6 +148,7 @@
 # [UVMTOP]     1
 # [WR_DRV]    16
 # [WR_MON]    16
+# [fifo_coverage]     1
 # [fifo_env]     3
 # [fifo_rand_test]     1
 # [fifo_rd_agent]     2
@@ -157,7 +162,7 @@
 #    Time: 1 ms  Iteration: 0  Instance: /fifo_tb_top
 # Break in Function uvm_pkg/uvm_report_object::die at /pkgs/mentor/questa/2021.3_1/questasim/linux_x86_64/../verilog_src/uvm-1.1d/src/base/uvm_report_object.svh line 292
 # Stopped at /pkgs/mentor/questa/2021.3_1/questasim/linux_x86_64/../verilog_src/uvm-1.1d/src/base/uvm_report_object.svh line 292
-# End time: 13:55:03 on Feb 27,2026, Elapsed time: 0:00:02
+# End time: 14:55:27 on Feb 27,2026, Elapsed time: 0:00:01
 # Errors: 0, Warnings: 0
 # ========================================
 # RUNNING: fifo_concurrent_test

@@ -6,6 +6,9 @@ package fifo_uvm_package;
 	//From existing RTL
   	import async_fifo_package::*;
 	
+	 `uvm_analysis_imp_decl(_rd)
+  	`uvm_analysis_imp_decl(_wr)
+	
 	`include "fifo_items.sv"
 	`include "fifo_sequences.sv"
 	`include "fifo_wr_driver.sv"
@@ -14,6 +17,7 @@ package fifo_uvm_package;
     	`include "fifo_rd_monitor.sv"
     	`include "fifo_agents.sv"
     	`include "fifo_scoreboard.sv"
+    	`include "fifo_coverage.sv"
     	`include "fifo_env.sv"
 	`include "fifo_tests.sv"
 

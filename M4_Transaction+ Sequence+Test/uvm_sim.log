@@ -1,6 +1,6 @@
 UVM_INFO UVM/fifo_tests.sv(23) @ 0: uvm_test_top [fifo_concurrent_test] Base test build_phase done
-UVM_INFO UVM/fifo_env.sv(38) @ 0: uvm_test_top.env [fifo_env] fifo_env build_phase complete
-UVM_INFO UVM/fifo_env.sv(48) @ 0: uvm_test_top.env [fifo_env] fifo_env connect_phase complete
-UVM_INFO UVM/fifo_env.sv(55) @ 0: uvm_test_top.env [fifo_env] UVM Hierarchy:
+UVM_INFO UVM/fifo_env.sv(40) @ 0: uvm_test_top.env [fifo_env] fifo_env build_phase complete
+UVM_INFO UVM/fifo_env.sv(51) @ 0: uvm_test_top.env [fifo_env] fifo_env connect_phase complete
+UVM_INFO UVM/fifo_env.sv(58) @ 0: uvm_test_top.env [fifo_env] UVM Hierarchy:
 UVM_INFO UVM/fifo_tests.sv(235) @ 0: uvm_test_top [CONC_TEST] Concurrent RW test: 20 transactions
 UVM_INFO UVM/fifo_tests.sv(242) @ 673670: uvm_test_top [CONC_TEST] Concurrent test complete
