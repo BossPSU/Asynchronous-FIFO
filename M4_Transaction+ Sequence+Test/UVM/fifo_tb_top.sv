@@ -15,6 +15,7 @@ import async_fifo_package::*;
 import uvm_pkg::*;
 `include "uvm_macros.svh"
 import fifo_uvm_package::*;
+`include "fifo_sva_bind.sv"
 
 module fifo_tb_top;
 
@@ -76,6 +77,7 @@ module fifo_tb_top;
     	    if0.rrst = 1'b0;
 	
     	    `uvm_info("TB_TOP", "Reset released on both domains", UVM_LOW)
+    	    $asserton(0, fifo_tb_top.dut);
     	end
 	
     	// -------------------------------------------------------
@@ -94,7 +96,7 @@ module fifo_tb_top;
     	// Simulation timeout watchdog
     	// -------------------------------------------------------
     	initial begin
-    	    #100_000_000;
+    	    #10_000_000;
     	    `uvm_fatal("TIMEOUT", "Simulation timeout – check for hung sequences")
     	end
 	

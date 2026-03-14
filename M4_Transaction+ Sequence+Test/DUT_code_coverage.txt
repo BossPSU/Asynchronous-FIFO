@@ -1,6 +1,14 @@
 Coverage Report Summary Data by instance
 
 =================================================================================
+=== Instance: /fifo_tb_top/if0
+=== Design Unit: work.fifo_if
+=================================================================================
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Assertions                       3         3         0   100.00%
+
+=================================================================================
 === Instance: /fifo_tb_top/dut
 === Design Unit: work.async_fifo
 =================================================================================
@@ -11,6 +19,8 @@ Coverage Report Summary Data by instance
     Statements                      25        25         0   100.00%
     Toggles                        170       170         0   100.00%
 
+
+TOTAL ASSERTION COVERAGE: 100.00%  ASSERTIONS: 3
 
 Total Coverage By Instance (filtered view): 100.00%
 
