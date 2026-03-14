@@ -3,18 +3,18 @@ module async_fifo #(
 	parameter int DEPTH = 16 //2^N
 )(
 	//write domain
-	input logic wclk, 
-	input logic wrst,	// active-high async reset
-	input logic w_valid,
-	input logic [DATA_WIDTH-1:0] w_data,
-	output logic w_ready,
+	input logic wclk, 						//write clock
+	input logic wrst,						// active-high async reset
+	input logic w_valid,  					//write request
+	input logic [DATA_WIDTH-1:0] w_data,	//write data input
+	output logic w_ready, 
 
 	//read domain
-	input logic rclk,
-	input logic rrst,
-	input logic r_ready,	// active-high async reset
-	output logic r_valid,
-	output logic [DATA_WIDTH-1:0] r_data
+	input logic rclk,						//read clock
+	input logic rrst,						//read-domain asynchronous reset
+	input logic r_ready,					//read request / consumer ready
+	output logic r_valid,					//read data is available
+	output logic [DATA_WIDTH-1:0] r_data  	//read data output
 	);
 
 	//widths
