@@ -166,6 +166,73 @@ class rd_drain_seq extends uvm_sequence #(fifo_rd_item);
 endclass
 
 // ─────────────────────────────────────────────────────────────
+// fifo_reset_seq
+// ─────────────────────────────────────────────────────────────
+// Drives wrst and rrst high for rst_cycles write/read clocks,
+// then releases both and waits sync_cycles for the gray-code
+// synchronizer chains to flush before returning.
+//
+// The sequence drives reset directly through the virtual
+// interface (not through the sequencer item path) because reset
+// is an out-of-band control signal, not a data transaction.
+//
+// Usage: set vif before calling start().  The test is
+// responsible for flushing the scoreboard shadow queue between
+// assertion and release (call env.sb.flush_reset()).
+// ─────────────────────────────────────────────────────────────
+class fifo_reset_seq extends uvm_sequence_base;
+    `uvm_object_utils(fifo_reset_seq)
+ 
+    // Number of write-clock cycles to hold reset asserted
+    int unsigned rst_cycles  = 4;
+    // Extra cycles to wait after release for sync chains to settle
+    int unsigned sync_cycles = 6;
+ 
+    virtual fifo_if vif;
+    // Optional coverage handle – if set, reset assertion/release
+    // are sampled so cp_wrst and cp_rrst bins are covered
+ 
+    function new(string name = "fifo_reset_seq");
+        super.new(name);
+    endfunction
+ 
+    virtual task body();
+        if (vif == null)
+            `uvm_fatal("RESET_SEQ", "vif not set before starting fifo_reset_seq")
+ 
+        `uvm_info("RESET_SEQ", $sformatf("Asserting reset for %0d wr-clk cycles", rst_cycles), UVM_LOW)
+ 
+        // De-assert valid on both sides so no in-flight transaction
+        // is left dangling while reset is asserted
+        vif.wr_cb.w_valid <= 1'b0;
+        vif.rd_cb.r_ready <= 1'b0;
+        @(vif.wr_cb);
+ 
+        // Assert reset synchronously to write clock; assert rrst one
+        // read-clock edge later so both domains see clean assertion
+        vif.wr_cb.wrst <= 1'b1;
+        @(vif.rd_cb);
+        vif.rd_cb.rrst <= 1'b1;
+ 
+        // Hold for rst_cycles write-clock cycles
+        repeat (rst_cycles) @(vif.wr_cb);
+ 
+        // Release write-domain reset first, then read-domain one
+        // read-clock later (matches typical async FIFO release order)
+        vif.wr_cb.wrst <= 1'b0;
+        @(vif.rd_cb);
+        vif.rd_cb.rrst <= 1'b0;
+ 
+        `uvm_info("RESET_SEQ", "Reset released – waiting for sync chains to settle", UVM_LOW)
+ 
+        // Wait for both synchronizer pipelines to flush
+        repeat (sync_cycles) @(vif.wr_cb);
+ 
+        `uvm_info("RESET_SEQ", "Reset sequence complete – FIFO ready", UVM_LOW)
+    endtask
+endclass
+
+// ─────────────────────────────────────────────────────────────
 // Scenario sub-sequences
 // Each one mirrors exactly what the corresponding individual
 // test does, so fifo_full_seq can simply compose them – the
@@ -455,6 +522,85 @@ class fifo_corner_data_seq extends uvm_sequence_base;
     	endtask
 endclass
 
+// ── 8. Reset Test ───────────────────────────────────────────
+// Composite sequence that exercises mid-simulation reset:
+//   1. Write N items into the FIFO (leaving it partially full)
+//   2. Assert reset – FIFO state must be discarded
+//   3. Flush scoreboard shadow queue (stale expected data gone)
+//   4. Release reset and wait for sync chains
+//   5. Smoke check: write M fresh items and read them back,
+//      confirming the FIFO behaves as empty after reset
+// ─────────────────────────────────────────────────────────────
+class fifo_reset_test_seq extends uvm_sequence_base;
+    `uvm_object_utils(fifo_reset_test_seq)
+ 
+    // Items written before reset (leaves FIFO partially full)
+    int unsigned pre_reset_n  = 8;
+    // Items written + read after reset (smoke check)
+    int unsigned post_reset_n = 4;
+ 
+    uvm_sequencer #(fifo_wr_item) wr_seqr;
+    uvm_sequencer #(fifo_rd_item) rd_seqr;
+    virtual fifo_if               vif;
+    // Direct handle to scoreboard so we can flush it on reset
+    uvm_component              sb;
+
+
+ 
+    function new(string name = "fifo_reset_test_seq");
+        super.new(name);
+    endfunction
+ 
+    virtual task body();
+        wr_burst_seq  pre_wr;
+        fifo_reset_seq rst;
+        fifo_smoke_seq post_smoke;
+ 
+        if (wr_seqr == null)
+    		`uvm_fatal("RST_TEST_SEQ", "wr_seqr is null before start")
+	if (rd_seqr == null)
+    		`uvm_fatal("RST_TEST_SEQ", "rd_seqr is null before start")
+	if (vif == null)
+    		`uvm_fatal("RST_TEST_SEQ", "vif is null before start")
+	if (sb == null)
+    		`uvm_fatal("RST_TEST_SEQ", "sb is null before start")
+ 
+        // ── 1. Write pre_reset_n items (FIFO left partially full)
+        `uvm_info("RST_TEST_SEQ", $sformatf("Phase 1: writing %0d items pre-reset", pre_reset_n), UVM_LOW)
+        pre_wr   = wr_burst_seq::type_id::create("pre_wr");
+        pre_wr.n = pre_reset_n;
+        pre_wr.start(wr_seqr);
+ 
+        // ── 2. Assert reset (discards FIFO contents)
+        `uvm_info("RST_TEST_SEQ", "Phase 2: asserting reset", UVM_LOW)
+        rst     = fifo_reset_seq::type_id::create("rst");
+        rst.vif = vif;
+        rst.start(m_sequencer);
+ 
+        // ── 3. Flush scoreboard – pre-reset writes are now lost
+        `uvm_info("RST_TEST_SEQ", "Phase 3: flushing scoreboard", UVM_LOW)
+        begin
+            fifo_scoreboard sb_typed;
+            if (!$cast(sb_typed, sb))
+                `uvm_fatal("RST_TEST_SEQ", "sb handle is not a fifo_scoreboard")
+            sb_typed.flush_reset();
+        end
+ 
+        // ── 4. Post-reset smoke: write M items and read them back.
+        //    If the FIFO was truly reset, data comes back in FIFO
+        //    order starting from the first post-reset write.
+        `uvm_info("RST_TEST_SEQ", $sformatf("Phase 4: post-reset smoke (%0d items)", post_reset_n), UVM_LOW)
+        post_smoke         = fifo_smoke_seq::type_id::create("post_smoke");
+        post_smoke.n       = post_reset_n;
+        post_smoke.wr_seqr = wr_seqr;
+        post_smoke.rd_seqr = rd_seqr;
+        post_smoke.start(m_sequencer);
+ 
+        `uvm_info("RST_TEST_SEQ", "Reset test sequence complete", UVM_LOW)
+    endtask
+endclass
+
+
 // ─────────────────────────────────────────────────────────────
 // fifo_full_seq: composite sequence that exercises every
 // scenario in a single, ordered run by delegating to each of
@@ -470,6 +616,7 @@ endclass
 //   5. fifo_rand_seq       – N randomized writes then reads
 //   6. fifo_concurrent_seq – N randomized writes forked with N reads
 //   7. fifo_corner_data_seq  – explicit corner values at corner fill levels
+//   8. fifo_reset_test_seq - reset FIFO after N randomized writes
 // ─────────────────────────────────────────────────────────────
 class fifo_full_seq extends uvm_sequence_base;
     	`uvm_object_utils(fifo_full_seq)
@@ -483,26 +630,11 @@ class fifo_full_seq extends uvm_sequence_base;
     	// Sequencer handles – must be set by the test before start()
     	uvm_sequencer #(fifo_wr_item) wr_seqr;
     	uvm_sequencer #(fifo_rd_item) rd_seqr;
+    	virtual fifo_if  vif;
+    	uvm_component    sb;
 
     	function new(string name = "fifo_full_seq");
         	super.new(name);
-    	endfunction
-
-    	// Propagate sequencer handles down into any sub-sequence
-    	local function void wire_seqrs(uvm_sequence_base sub);
-        	fifo_smoke_seq      s0;
-        	fifo_fill_drain_seq s1;
-        	fifo_overflow_seq   s2;
-        	fifo_underflow_seq  s3;
-        	fifo_rand_seq       s4;
-        	fifo_concurrent_seq s5;
-
-        	if ($cast(s0, sub)) begin s0.wr_seqr = wr_seqr; s0.rd_seqr = rd_seqr; return; end
-        	if ($cast(s1, sub)) begin s1.wr_seqr = wr_seqr; s1.rd_seqr = rd_seqr; return; end
-        	if ($cast(s2, sub)) begin s2.wr_seqr = wr_seqr; s2.rd_seqr = rd_seqr; return; end
-        	if ($cast(s3, sub)) begin s3.wr_seqr = wr_seqr; s3.rd_seqr = rd_seqr; return; end
-        	if ($cast(s4, sub)) begin s4.wr_seqr = wr_seqr; s4.rd_seqr = rd_seqr; return; end
-        	if ($cast(s5, sub)) begin s5.wr_seqr = wr_seqr; s5.rd_seqr = rd_seqr; return; end
     	endfunction
 
     	virtual task body();
@@ -513,12 +645,13 @@ class fifo_full_seq extends uvm_sequence_base;
         	fifo_rand_seq       rand_s;
         	fifo_concurrent_seq concurrent;
         	fifo_corner_data_seq corner_data;
+        	fifo_reset_test_seq reset;
 
         	if (wr_seqr == null || rd_seqr == null)
             		`uvm_fatal("FULL_SEQ", "wr_seqr / rd_seqr not set before starting fifo_full_seq")
 
         	// ── 1. SMOKE ────────────────────────────────────────
-    		`uvm_info("FULL_SEQ", "[1/6] Smoke", UVM_LOW)
+    		`uvm_info("FULL_SEQ", "[1/8] Smoke", UVM_LOW)
     		smoke          = fifo_smoke_seq::type_id::create("smoke");
     		smoke.n        = smoke_n;
     		smoke.wr_seqr  = wr_seqr;
@@ -527,7 +660,7 @@ class fifo_full_seq extends uvm_sequence_base;
     		#500;
 
     		// ── 2. FILL / DRAIN ─────────────────────────────────
-    		`uvm_info("FULL_SEQ", "[2/6] Fill/Drain", UVM_LOW)
+    		`uvm_info("FULL_SEQ", "[2/8] Fill/Drain", UVM_LOW)
     		fill_drain          = fifo_fill_drain_seq::type_id::create("fill_drain");
     		fill_drain.wr_seqr  = wr_seqr;
     		fill_drain.rd_seqr  = rd_seqr;
@@ -535,7 +668,7 @@ class fifo_full_seq extends uvm_sequence_base;
     		#500;
 
     		// ── 3. OVERFLOW ─────────────────────────────────────
-    		`uvm_info("FULL_SEQ", "[3/6] Overflow", UVM_LOW)
+    		`uvm_info("FULL_SEQ", "[3/8] Overflow", UVM_LOW)
     		overflow            = fifo_overflow_seq::type_id::create("overflow");
     		overflow.overflow_n = overflow_n;
     		overflow.wr_seqr    = wr_seqr;
@@ -544,7 +677,7 @@ class fifo_full_seq extends uvm_sequence_base;
     		#500;
 
     		// ── 4. UNDERFLOW ────────────────────────────────────
-    		`uvm_info("FULL_SEQ", "[4/6] Underflow", UVM_LOW)
+    		`uvm_info("FULL_SEQ", "[4/8] Underflow", UVM_LOW)
     		underflow          = fifo_underflow_seq::type_id::create("underflow");
     		underflow.n        = 4;
     		underflow.wr_seqr  = wr_seqr;
@@ -553,7 +686,7 @@ class fifo_full_seq extends uvm_sequence_base;
     		#500;
 
     		// ── 5. RANDOM ───────────────────────────────────────
-    		`uvm_info("FULL_SEQ", "[5/6] Random", UVM_LOW)
+    		`uvm_info("FULL_SEQ", "[5/8] Random", UVM_LOW)
     		rand_s          = fifo_rand_seq::type_id::create("rand_s");
     		rand_s.n        = rand_n;
     		rand_s.wr_seqr  = wr_seqr;
@@ -562,7 +695,7 @@ class fifo_full_seq extends uvm_sequence_base;
     		#500;
 
     		// ── 6. CONCURRENT ───────────────────────────────────
-    		`uvm_info("FULL_SEQ", "[6/6] Concurrent", UVM_LOW)
+    		`uvm_info("FULL_SEQ", "[6/8] Concurrent", UVM_LOW)
     		concurrent          = fifo_concurrent_seq::type_id::create("concurrent");
     		concurrent.n        = concurrent_n;
     		concurrent.wr_seqr  = wr_seqr;
@@ -573,12 +706,22 @@ class fifo_full_seq extends uvm_sequence_base;
 		// ── 7. CORNER DATA ───────────────────────────────────
         	// Explicitly exercises 0x00/0xFF/0x55/0xAA at empty, partial,
         	// and full fill levels to close the cx_data_x_fill cross bins.
-        	`uvm_info("FULL_SEQ", "[7/7] Corner Data", UVM_LOW)
+        	`uvm_info("FULL_SEQ", "[7/8] Corner Data", UVM_LOW)
         	corner_data         = fifo_corner_data_seq::type_id::create("corner_data");
         	corner_data.wr_seqr = wr_seqr;
         	corner_data.rd_seqr = rd_seqr;
         	corner_data.start(m_sequencer);
         	#500;
+
+		// ── 6. Reset ───────────────────────────────────
+    		`uvm_info("FULL_SEQ", "[8/8] Reset", UVM_LOW)
+    		reset          = fifo_reset_test_seq::type_id::create("reset");
+    		reset.wr_seqr  = wr_seqr;
+    		reset.rd_seqr  = rd_seqr;
+    		reset.vif     = vif;
+            	reset.sb      = sb;
+    		reset.start(m_sequencer);
+    		#500;
         	
         	`uvm_info("FULL_SEQ", "fifo_full_seq complete – all 6 scenarios done", UVM_LOW)
     	endtask

@@ -31,6 +31,6 @@ vsim -c -coverage -voptargs=+acc -onfinish stop work.fifo_tb_top \
 
 run -all
 coverage report -detail -cvg -directive -comments -output functional_coverage.txt
-coverage report -detail -instance=/fifo_tb_top/* -output DUT_code_coverage.txt
+coverage report -instance=/fifo_tb_top/* -output DUT_code_coverage.txt
 
 pause

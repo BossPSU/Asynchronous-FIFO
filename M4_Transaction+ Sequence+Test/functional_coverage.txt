@@ -23,18 +23,18 @@ Covergroup                                             Metric       Goal       B
         % Hit:                                        100.00%        100          -                      
         bin zero                                            2          1          -    Covered              
         bin ones                                            3          1          -    Covered              
-        bin walking_1                                       2          1          -    Covered              
+        bin walking_1                                       3          1          -    Covered              
         bin walking_0                                       3          1          -    Covered              
-        bin low_range                                      35          1          -    Covered              
-        bin mid_range                                      77          1          -    Covered              
-        bin high_range                                     33          1          -    Covered              
+        bin low_range                                      37          1          -    Covered              
+        bin mid_range                                      84          1          -    Covered              
+        bin high_range                                     36          1          -    Covered              
     Coverpoint cp_fill_level                          100.00%        100          -    Covered              
         covered/total bins:                                 2          2          -                      
         missing/total bins:                                 0          2          -                      
         % Hit:                                        100.00%        100          -                      
         ignore_bin full                                     0                     -    ZERO                 
-        bin empty                                           8          1          -    Covered              
-        bin partial                                       142          1          -    Covered              
+        bin empty                                           9          1          -    Covered              
+        bin partial                                       153          1          -    Covered              
  TYPE /fifo_uvm_package/fifo_coverage/cg_read         100.00%        100          -    Covered              
     covered/total bins:                                     6          6          -                      
     missing/total bins:                                     0          6          -                      
@@ -45,14 +45,14 @@ Covergroup                                             Metric       Goal       B
         % Hit:                                        100.00%        100          -                      
         bin zero                                            2          1          -    Covered              
         bin ones                                            3          1          -    Covered              
-        bin low                                            79          1          -    Covered              
-        bin high                                           66          1          -    Covered              
+        bin low                                            78          1          -    Covered              
+        bin high                                           71          1          -    Covered              
     Coverpoint cp_fill_at_read                        100.00%        100          -    Covered              
         covered/total bins:                                 2          2          -                      
         missing/total bins:                                 0          2          -                      
         % Hit:                                        100.00%        100          -                      
         ignore_bin empty                                    0                     -    ZERO                 
-        bin partial                                       147          1          -    Covered              
+        bin partial                                       151          1          -    Covered              
         bin full                                            3          1          -    Covered              
  TYPE /fifo_uvm_package/fifo_coverage/cg_flags        100.00%        100          -    Covered              
     covered/total bins:                                    10         10          -                      
@@ -62,26 +62,26 @@ Covergroup                                             Metric       Goal       B
         covered/total bins:                                 2          2          -                      
         missing/total bins:                                 0          2          -                      
         % Hit:                                        100.00%        100          -                      
-        bin not_full                                      297          1          -    Covered              
+        bin not_full                                      313          1          -    Covered              
         bin full                                            3          1          -    Covered              
     Coverpoint cp_empty                               100.00%        100          -    Covered              
         covered/total bins:                                 2          2          -                      
         missing/total bins:                                 0          2          -                      
         % Hit:                                        100.00%        100          -                      
-        bin not_empty                                     292          1          -    Covered              
+        bin not_empty                                     308          1          -    Covered              
         bin empty                                           8          1          -    Covered              
     Coverpoint cp_wr_stall                            100.00%        100          -    Covered              
         covered/total bins:                                 2          2          -                      
         missing/total bins:                                 0          2          -                      
         % Hit:                                        100.00%        100          -                      
-        bin no_stall                                      263          1          -    Covered              
+        bin no_stall                                      279          1          -    Covered              
         bin stalled                                        37          1          -    Covered              
     Coverpoint cp_rd_stall                            100.00%        100          -    Covered              
         covered/total bins:                                 1          1          -                      
         missing/total bins:                                 0          1          -                      
         % Hit:                                        100.00%        100          -                      
         ignore_bin stalled                                  0                     -    ZERO                 
-        bin no_stall                                      300          1          -    Covered              
+        bin no_stall                                      316          1          -    Covered              
     Cross cx_full_x_empty                             100.00%        100          -    Covered              
         covered/total bins:                                 3          3          -                      
         missing/total bins:                                 0          3          -                      
@@ -89,7 +89,7 @@ Covergroup                                             Metric       Goal       B
         Auto, Default and User Defined Bins:
             bin <not_full,empty>                            8          1          -    Covered              
             bin <full,not_empty>                            3          1          -    Covered              
-            bin <not_full,not_empty>                      289          1          -    Covered              
+            bin <not_full,not_empty>                      305          1          -    Covered              
         Illegal and Ignore Bins:
             illegal_bin impossible                          0                     -    ZERO                 
 
@@ -108,18 +108,18 @@ Covergroup                                             Metric       Goal       B
         % Hit:                                        100.00%        100          -                      
         bin zero                                            2          1          -    Covered              
         bin ones                                            3          1          -    Covered              
-        bin walking_1                                       2          1          -    Covered              
+        bin walking_1                                       3          1          -    Covered              
         bin walking_0                                       3          1          -    Covered              
-        bin low_range                                      35          1          -    Covered              
-        bin mid_range                                      77          1          -    Covered              
-        bin high_range                                     33          1          -    Covered              
+        bin low_range                                      37          1          -    Covered              
+        bin mid_range                                      84          1          -    Covered              
+        bin high_range                                     36          1          -    Covered              
     Coverpoint cp_fill_level                          100.00%        100          -    Covered              
         covered/total bins:                                 2          2          -                      
         missing/total bins:                                 0          2          -                      
         % Hit:                                        100.00%        100          -                      
         ignore_bin full                                     0                     -    ZERO                 
-        bin empty                                           8          1          -    Covered              
-        bin partial                                       142          1          -    Covered              
+        bin empty                                           9          1          -    Covered              
+        bin partial                                       153          1          -    Covered              
  TYPE /fifo_uvm_package/fifo_coverage/cg_read         100.00%        100          -    Covered              
     covered/total bins:                                     6          6          -                      
     missing/total bins:                                     0          6          -                      
@@ -130,14 +130,14 @@ Covergroup                                             Metric       Goal       B
         % Hit:                                        100.00%        100          -                      
         bin zero                                            2          1          -    Covered              
         bin ones                                            3          1          -    Covered              
-        bin low                                            79          1          -    Covered              
-        bin high                                           66          1          -    Covered              
+        bin low                                            78          1          -    Covered              
+        bin high                                           71          1          -    Covered              
     Coverpoint cp_fill_at_read                        100.00%        100          -    Covered              
         covered/total bins:                                 2          2          -                      
         missing/total bins:                                 0          2          -                      
         % Hit:                                        100.00%        100          -                      
         ignore_bin empty                                    0                     -    ZERO                 
-        bin partial                                       147          1          -    Covered              
+        bin partial                                       151          1          -    Covered              
         bin full                                            3          1          -    Covered              
  TYPE /fifo_uvm_package/fifo_coverage/cg_flags        100.00%        100          -    Covered              
     covered/total bins:                                    10         10          -                      
@@ -147,26 +147,26 @@ Covergroup                                             Metric       Goal       B
         covered/total bins:                                 2          2          -                      
         missing/total bins:                                 0          2          -                      
         % Hit:                                        100.00%        100          -                      
-        bin not_full                                      297          1          -    Covered              
+        bin not_full                                      313          1          -    Covered              
         bin full                                            3          1          -    Covered              
     Coverpoint cp_empty                               100.00%        100          -    Covered              
         covered/total bins:                                 2          2          -                      
         missing/total bins:                                 0          2          -                      
         % Hit:                                        100.00%        100          -                      
-        bin not_empty                                     292          1          -    Covered              
+        bin not_empty                                     308          1          -    Covered              
         bin empty                                           8          1          -    Covered              
     Coverpoint cp_wr_stall                            100.00%        100          -    Covered              
         covered/total bins:                                 2          2          -                      
         missing/total bins:                                 0          2          -                      
         % Hit:                                        100.00%        100          -                      
-        bin no_stall                                      263          1          -    Covered              
+        bin no_stall                                      279          1          -    Covered              
         bin stalled                                        37          1          -    Covered              
     Coverpoint cp_rd_stall                            100.00%        100          -    Covered              
         covered/total bins:                                 1          1          -                      
         missing/total bins:                                 0          1          -                      
         % Hit:                                        100.00%        100          -                      
         ignore_bin stalled                                  0                     -    ZERO                 
-        bin no_stall                                      300          1          -    Covered              
+        bin no_stall                                      316          1          -    Covered              
     Cross cx_full_x_empty                             100.00%        100          -    Covered              
         covered/total bins:                                 3          3          -                      
         missing/total bins:                                 0          3          -                      
@@ -174,7 +174,7 @@ Covergroup                                             Metric       Goal       B
         Auto, Default and User Defined Bins:
             bin <not_full,empty>                            8          1          -    Covered              
             bin <full,not_empty>                            3          1          -    Covered              
-            bin <not_full,not_empty>                      289          1          -    Covered              
+            bin <not_full,not_empty>                      305          1          -    Covered              
         Illegal and Ignore Bins:
             illegal_bin impossible                          0                     -    ZERO                 
 

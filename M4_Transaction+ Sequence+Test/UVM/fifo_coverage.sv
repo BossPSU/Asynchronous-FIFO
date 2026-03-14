@@ -13,6 +13,8 @@ class fifo_coverage extends uvm_subscriber #(fifo_wr_item);
     	bit [7:0]     rd_data;
     	bit           dut_full;
    	bit           dut_empty;
+   	bit           wrst_obs;
+    	bit           rrst_obs;
     	bit           wr_stall;
     	bit           rd_stall;
 
@@ -105,6 +107,8 @@ class fifo_coverage extends uvm_subscriber #(fifo_wr_item);
            		bins no_stall       = {0};
             		ignore_bins stalled = {1};
         	}
+        	
+
 
     	endgroup
 
@@ -177,6 +181,18 @@ class fifo_coverage extends uvm_subscriber #(fifo_wr_item);
         	cg_flags.sample();
 
         	`uvm_info("COV_RD",$sformatf("Sampled read:  data=0x%02h fill_after=%0d empty=%0b stall=%0b",t.r_data, fill_level, dut_empty, rd_stall),UVM_HIGH)
+    	endfunction
+
+	// Called by the reset test whenever wrst or rrst transitions.
+    	// Samples cp_wrst and cp_rrst so both asserted and deasserted
+    	// states are recorded in the coverage database.
+    	function void sample_reset(bit wrst, bit rrst);
+        	wrst_obs = wrst;
+        	rrst_obs = rrst;
+        	// Reset also clears the fill-level model
+        	if (wrst || rrst) fill_level = 0;
+        	cg_flags.sample();
+        	`uvm_info("COV_RST",$sformatf("Reset sample: wrst=%0b rrst=%0b", wrst, rrst),UVM_HIGH)
     	endfunction
 
     	// Report coverage at end of simulation

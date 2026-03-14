@@ -83,8 +83,8 @@ module fifo_tb_top;
     	// -------------------------------------------------------
     	initial begin
     	    // Publish interface to config_db so all components can get it
-    	    uvm_config_db #(virtual fifo_if)::set(
-    	        null, "uvm_test_top.*", "fifo_vif", if0);
+    	    uvm_config_db #(virtual fifo_if)::set(null, "uvm_test_top",   "fifo_vif", if0);
+	    uvm_config_db #(virtual fifo_if)::set(null, "uvm_test_top.*", "fifo_vif", if0);
 	
     	    // Optional: set default test name via plusarg (+UVM_TESTNAME=fifo_smoke_test)
     	    run_test();

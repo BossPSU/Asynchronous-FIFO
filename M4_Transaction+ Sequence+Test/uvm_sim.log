@@ -2,5 +2,5 @@ UVM_INFO UVM/fifo_tests.sv(23) @ 0: uvm_test_top [fifo_full_test] Base test buil
 UVM_INFO UVM/fifo_env.sv(42) @ 0: uvm_test_top.env [fifo_env] fifo_env build_phase complete
 UVM_INFO UVM/fifo_env.sv(53) @ 0: uvm_test_top.env [fifo_env] fifo_env connect_phase complete
 UVM_INFO UVM/fifo_env.sv(60) @ 0: uvm_test_top.env [fifo_env] UVM Hierarchy:
-UVM_INFO UVM/fifo_tests.sv(242) @ 0: uvm_test_top [FULL_TEST] Starting fifo_full_seq (all 6 scenarios)
-UVM_INFO UVM/fifo_tests.sv(244) @ 5369850: uvm_test_top [FULL_TEST] Full test complete
+UVM_INFO UVM/fifo_tests.sv(306) @ 0: uvm_test_top [FULL_TEST] Starting fifo_full_seq (all 8 scenarios)
+UVM_INFO UVM/fifo_tests.sv(308) @ 5810070: uvm_test_top [FULL_TEST] Full test complete

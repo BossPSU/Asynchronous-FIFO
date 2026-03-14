@@ -39,7 +39,27 @@ class fifo_base_test extends uvm_test;
 		else if ($cast(s3, seq)) begin s3.wr_seqr = env.wr_agent.wr_seqr; s3.rd_seqr = env.rd_agent.rd_seqr; end
 		else if ($cast(s4, seq)) begin s4.wr_seqr = env.wr_agent.wr_seqr; s4.rd_seqr = env.rd_agent.rd_seqr; end
 		else if ($cast(s5, seq)) begin s5.wr_seqr = env.wr_agent.wr_seqr; s5.rd_seqr = env.rd_agent.rd_seqr; end
-		else if ($cast(sf, seq)) begin sf.wr_seqr = env.wr_agent.wr_seqr; sf.rd_seqr = env.rd_agent.rd_seqr; end
+		else if ($cast(sf, seq)) begin 
+			virtual fifo_if vif_tmp;
+        		sf.wr_seqr = env.wr_agent.wr_seqr;
+        		sf.rd_seqr = env.rd_agent.rd_seqr;
+        		if (uvm_config_db #(virtual fifo_if)::get(this, "", "fifo_vif", vif_tmp))
+            			sf.vif = vif_tmp;
+        		sf.sb = env.sb;
+    		end
+
+		begin
+			fifo_reset_test_seq sr;
+			if ($cast(sr, seq)) begin
+        			virtual fifo_if vif_tmp;
+        			sr.wr_seqr = env.wr_agent.wr_seqr;
+        			sr.rd_seqr = env.rd_agent.rd_seqr;
+        			sr.sb      = env.sb;
+        			if (!uvm_config_db #(virtual fifo_if)::get(this, "", "fifo_vif", vif_tmp))
+            				`uvm_fatal("CFG_ERR", "run_vseq: cannot get fifo_vif for fifo_reset_test_seq")
+        			sr.vif = vif_tmp;
+			end
+		end
 
 		seq.start(env.vseqr);
 	endtask
@@ -220,8 +240,44 @@ class fifo_concurrent_test extends fifo_base_test;
 
 endclass
 
+class fifo_reset_test extends fifo_base_test;
+    `uvm_component_utils(fifo_reset_test)
+ 
+    function new(string name = "fifo_reset_test", uvm_component parent = null);
+        super.new(name, parent);
+    endfunction
+ 
+    virtual task run_phase(uvm_phase phase);
+        fifo_reset_test_seq seq;
+        virtual fifo_if vif;
+ 
+        phase.raise_objection(this, "reset test started");
+ 
+        // Retrieve the virtual interface so we can pass it to the sequence
+        if (!uvm_config_db #(virtual fifo_if)::get(this, "", "fifo_vif", vif))
+            `uvm_fatal("CFG_ERR", "fifo_reset_test: cannot get fifo_vif from config_db")
+ 
+        seq              = fifo_reset_test_seq::type_id::create("seq");
+        seq.wr_seqr      = env.wr_agent.wr_seqr;
+        seq.rd_seqr      = env.rd_agent.rd_seqr;
+        seq.vif          = vif;
+        seq.sb           = env.sb;
+        seq.pre_reset_n  = 8;
+        seq.post_reset_n = 4;
+ 
+        `uvm_info("RESET_TEST", "Starting reset test", UVM_LOW)
+        env.cov.sample_reset(1'b0, 1'b0);  // deasserted baseline
+        env.cov.sample_reset(1'b1, 1'b1);  // asserted (seq will drive this)
+        seq.start(env.vseqr);
+        env.cov.sample_reset(1'b0, 1'b0);  // deasserted after seq completes
+        `uvm_info("RESET_TEST", "Reset test complete", UVM_LOW)
+ 
+        phase.drop_objection(this, "reset test done");
+    endtask
+endclass
+
 // ─────────────────────────────────────────────────────────────
-// fifo_full_test: composes all seven sub-sequences via
+// fifo_full_test: composes all eight sub-sequences via
 // fifo_full_seq, exactly as mtx_full_test composes
 // mtx_corner_seq + mtx_rand_seq via mtx_full_seq.
 // ─────────────────────────────────────────────────────────────
@@ -234,16 +290,24 @@ class fifo_full_test extends fifo_base_test;
 
     	virtual task run_phase(uvm_phase phase);
         	fifo_full_seq full_seq;
+    		virtual fifo_if vif;
 
-        	phase.raise_objection(this, "full test started");
+    		phase.raise_objection(this, "full test started");
 
-        	full_seq = fifo_full_seq::type_id::create("full_seq");
+    		if (!uvm_config_db #(virtual fifo_if)::get(this, "", "fifo_vif", vif))
+        		`uvm_fatal("CFG_ERR", "fifo_full_test: cannot get fifo_vif from config_db")
 
-        	`uvm_info("FULL_TEST", "Starting fifo_full_seq (all 6 scenarios)", UVM_LOW)
-        	run_vseq(full_seq);
-        	`uvm_info("FULL_TEST", "Full test complete", UVM_LOW)
+    		full_seq = fifo_full_seq::type_id::create("full_seq");
+    		full_seq.wr_seqr = env.wr_agent.wr_seqr;
+    		full_seq.rd_seqr = env.rd_agent.rd_seqr;
+    		full_seq.vif     = vif;
+    		full_seq.sb      = env.sb;
 
-        	phase.drop_objection(this, "full test done");
+    		`uvm_info("FULL_TEST", "Starting fifo_full_seq (all 8 scenarios)", UVM_LOW)
+    		full_seq.start(env.vseqr);
+    		`uvm_info("FULL_TEST", "Full test complete", UVM_LOW)
+
+    		phase.drop_objection(this, "full test done");
     	endtask
 
 endclass

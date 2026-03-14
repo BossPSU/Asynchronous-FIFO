@@ -108,6 +108,11 @@ class fifo_scoreboard extends uvm_scoreboard;
                 		$sformatf("Shadow queue clean before '%s'", scenario_label), UVM_MEDIUM)
         	end
     	endfunction
+    	
+    	function void flush_reset();
+    		shadow_q.delete();
+    		`uvm_info(get_type_name(), "Scoreboard flushed on reset", UVM_LOW)
+	endfunction
 
     	// ----------------------------------------------------------
     	// check_phase: report any leftover items in shadow queue
