@@ -1,0 +1,130 @@
+Coverage Report by instance with details
+
+=================================================================================
+=== Instance: /fifo_tb_top/dut
+=== Design Unit: work.async_fifo
+=================================================================================
+Branch Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Branches                         8         8         0   100.00%
+
+================================Branch Details================================
+
+Branch Coverage for instance /fifo_tb_top/dut
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File RTL/async_fifo.sv
+------------------------------------IF Branch------------------------------------
+    52                                       885     Count coming in to IF
+    52              1                        401     
+    52              2                        484     
+Branch totals: 2 hits of 2 branches = 100.00%
+
+------------------------------------IF Branch------------------------------------
+    55                                       885     Count coming in to IF
+    55              1                        407     
+    55              2                        478     
+Branch totals: 2 hits of 2 branches = 100.00%
+
+------------------------------------IF Branch------------------------------------
+    104                                      313     Count coming in to IF
+    104             1                          2     
+    108             1                        311     
+Branch totals: 2 hits of 2 branches = 100.00%
+
+------------------------------------IF Branch------------------------------------
+    117                                      318     Count coming in to IF
+    117             1                          2     
+    121             1                        316     
+Branch totals: 2 hits of 2 branches = 100.00%
+
+
+Expression Coverage:
+    Enabled Coverage              Bins   Covered    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Expressions                      6         6         0   100.00%
+
+================================Expression Details================================
+
+Expression Coverage for instance /fifo_tb_top/dut --
+
+  File RTL/async_fifo.sv
+----------------Focused Expression View-----------------
+Line       42 Item    1  (w_valid && w_ready)
+Expression totals: 2 of 2 input terms covered = 100.00%
+
+----------------Focused Expression View-----------------
+Line       43 Item    1  (r_valid && r_ready)
+Expression totals: 2 of 2 input terms covered = 100.00%
+
+----------------Focused Expression View-----------------
+Line       95 Item    1  (rptr_gray_next == wptr_gray_rclk)
+Expression totals: 1 of 1 input term covered = 100.00%
+
+----------------Focused Expression View-----------------
+Line       100 Item    1  (wptr_gray_next == rptr_gray_full_cmp)
+Expression totals: 1 of 1 input term covered = 100.00%
+
+
+Statement Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Statements                      25        25         0   100.00%
+
+================================Statement Details================================
+
+Statement Coverage for instance /fifo_tb_top/dut --
+
+    Line         Item                      Count     Source 
+    ----         ----                      -----     ------ 
+  File RTL/async_fifo.sv
+    42              1                        321     
+    43              1                        318     
+    47              1                       1772     
+    51              1                        886     
+    52              1                        886     
+    53              1                        886     
+    55              1                        886     
+    56              1                        886     
+    95              1                        585     
+    98              1                        151     
+    100             1                        584     
+    103             1                        313     
+    105             1                          2     
+    106             1                          2     
+    107             1                          2     
+    109             1                        311     
+    110             1                        311     
+    111             1                        311     
+    116             1                        318     
+    118             1                          2     
+    119             1                          2     
+    120             1                          2     
+    122             1                        316     
+    123             1                        316     
+    124             1                        316     
+Toggle Coverage:
+    Enabled Coverage              Bins      Hits    Misses  Coverage
+    ----------------              ----      ----    ------  --------
+    Toggles                        170       168         2    98.82%
+
+================================Toggle Details================================
+
+Toggle Coverage for instance /fifo_tb_top/dut --
+
+                                              Node      1H->0L      0L->1H  "Coverage"
+                                              ---------------------------------------
+                                              rrst           1           0       50.00 
+                                              wrst           1           0       50.00 
+
+Total Node Count     =         85 
+Toggled Node Count   =         83 
+Untoggled Node Count =          2 
+
+Toggle Coverage      =      98.82% (168 of 170 bins)
+
+
+Total Coverage By Instance (filtered view): 99.70%
+

@@ -1,0 +1,6 @@
+*.vcd
+*.vcd
+work/
+*.qpg
+*.wlf
+*.log

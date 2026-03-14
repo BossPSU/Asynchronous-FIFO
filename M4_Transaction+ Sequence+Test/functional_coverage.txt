@@ -1,0 +1,184 @@
+Coverage Report by instance with details
+
+=================================================================================
+=== Instance: /fifo_uvm_package
+=== Design Unit: work.fifo_uvm_package
+=================================================================================
+
+Covergroup Coverage:
+    Covergroups                      3        na        na   100.00%
+        Coverpoints/Crosses          9        na        na        na
+            Covergroup Bins         25        25         0   100.00%
+----------------------------------------------------------------------------------------------------------
+Covergroup                                             Metric       Goal       Bins    Status               
+                                                                                                         
+----------------------------------------------------------------------------------------------------------
+ TYPE /fifo_uvm_package/fifo_coverage/cg_write        100.00%        100          -    Covered              
+    covered/total bins:                                     9          9          -                      
+    missing/total bins:                                     0          9          -                      
+    % Hit:                                            100.00%        100          -                      
+    Coverpoint cp_wr_data                             100.00%        100          -    Covered              
+        covered/total bins:                                 7          7          -                      
+        missing/total bins:                                 0          7          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin zero                                            2          1          -    Covered              
+        bin ones                                            3          1          -    Covered              
+        bin walking_1                                       2          1          -    Covered              
+        bin walking_0                                       3          1          -    Covered              
+        bin low_range                                      35          1          -    Covered              
+        bin mid_range                                      77          1          -    Covered              
+        bin high_range                                     33          1          -    Covered              
+    Coverpoint cp_fill_level                          100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        ignore_bin full                                     0                     -    ZERO                 
+        bin empty                                           8          1          -    Covered              
+        bin partial                                       142          1          -    Covered              
+ TYPE /fifo_uvm_package/fifo_coverage/cg_read         100.00%        100          -    Covered              
+    covered/total bins:                                     6          6          -                      
+    missing/total bins:                                     0          6          -                      
+    % Hit:                                            100.00%        100          -                      
+    Coverpoint cp_rd_data                             100.00%        100          -    Covered              
+        covered/total bins:                                 4          4          -                      
+        missing/total bins:                                 0          4          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin zero                                            2          1          -    Covered              
+        bin ones                                            3          1          -    Covered              
+        bin low                                            79          1          -    Covered              
+        bin high                                           66          1          -    Covered              
+    Coverpoint cp_fill_at_read                        100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        ignore_bin empty                                    0                     -    ZERO                 
+        bin partial                                       147          1          -    Covered              
+        bin full                                            3          1          -    Covered              
+ TYPE /fifo_uvm_package/fifo_coverage/cg_flags        100.00%        100          -    Covered              
+    covered/total bins:                                    10         10          -                      
+    missing/total bins:                                     0         10          -                      
+    % Hit:                                            100.00%        100          -                      
+    Coverpoint cp_full                                100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin not_full                                      297          1          -    Covered              
+        bin full                                            3          1          -    Covered              
+    Coverpoint cp_empty                               100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin not_empty                                     292          1          -    Covered              
+        bin empty                                           8          1          -    Covered              
+    Coverpoint cp_wr_stall                            100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin no_stall                                      263          1          -    Covered              
+        bin stalled                                        37          1          -    Covered              
+    Coverpoint cp_rd_stall                            100.00%        100          -    Covered              
+        covered/total bins:                                 1          1          -                      
+        missing/total bins:                                 0          1          -                      
+        % Hit:                                        100.00%        100          -                      
+        ignore_bin stalled                                  0                     -    ZERO                 
+        bin no_stall                                      300          1          -    Covered              
+    Cross cx_full_x_empty                             100.00%        100          -    Covered              
+        covered/total bins:                                 3          3          -                      
+        missing/total bins:                                 0          3          -                      
+        % Hit:                                        100.00%        100          -                      
+        Auto, Default and User Defined Bins:
+            bin <not_full,empty>                            8          1          -    Covered              
+            bin <full,not_empty>                            3          1          -    Covered              
+            bin <not_full,not_empty>                      289          1          -    Covered              
+        Illegal and Ignore Bins:
+            illegal_bin impossible                          0                     -    ZERO                 
+
+COVERGROUP COVERAGE:
+----------------------------------------------------------------------------------------------------------
+Covergroup                                             Metric       Goal       Bins    Status               
+                                                                                                         
+----------------------------------------------------------------------------------------------------------
+ TYPE /fifo_uvm_package/fifo_coverage/cg_write        100.00%        100          -    Covered              
+    covered/total bins:                                     9          9          -                      
+    missing/total bins:                                     0          9          -                      
+    % Hit:                                            100.00%        100          -                      
+    Coverpoint cp_wr_data                             100.00%        100          -    Covered              
+        covered/total bins:                                 7          7          -                      
+        missing/total bins:                                 0          7          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin zero                                            2          1          -    Covered              
+        bin ones                                            3          1          -    Covered              
+        bin walking_1                                       2          1          -    Covered              
+        bin walking_0                                       3          1          -    Covered              
+        bin low_range                                      35          1          -    Covered              
+        bin mid_range                                      77          1          -    Covered              
+        bin high_range                                     33          1          -    Covered              
+    Coverpoint cp_fill_level                          100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        ignore_bin full                                     0                     -    ZERO                 
+        bin empty                                           8          1          -    Covered              
+        bin partial                                       142          1          -    Covered              
+ TYPE /fifo_uvm_package/fifo_coverage/cg_read         100.00%        100          -    Covered              
+    covered/total bins:                                     6          6          -                      
+    missing/total bins:                                     0          6          -                      
+    % Hit:                                            100.00%        100          -                      
+    Coverpoint cp_rd_data                             100.00%        100          -    Covered              
+        covered/total bins:                                 4          4          -                      
+        missing/total bins:                                 0          4          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin zero                                            2          1          -    Covered              
+        bin ones                                            3          1          -    Covered              
+        bin low                                            79          1          -    Covered              
+        bin high                                           66          1          -    Covered              
+    Coverpoint cp_fill_at_read                        100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        ignore_bin empty                                    0                     -    ZERO                 
+        bin partial                                       147          1          -    Covered              
+        bin full                                            3          1          -    Covered              
+ TYPE /fifo_uvm_package/fifo_coverage/cg_flags        100.00%        100          -    Covered              
+    covered/total bins:                                    10         10          -                      
+    missing/total bins:                                     0         10          -                      
+    % Hit:                                            100.00%        100          -                      
+    Coverpoint cp_full                                100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin not_full                                      297          1          -    Covered              
+        bin full                                            3          1          -    Covered              
+    Coverpoint cp_empty                               100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin not_empty                                     292          1          -    Covered              
+        bin empty                                           8          1          -    Covered              
+    Coverpoint cp_wr_stall                            100.00%        100          -    Covered              
+        covered/total bins:                                 2          2          -                      
+        missing/total bins:                                 0          2          -                      
+        % Hit:                                        100.00%        100          -                      
+        bin no_stall                                      263          1          -    Covered              
+        bin stalled                                        37          1          -    Covered              
+    Coverpoint cp_rd_stall                            100.00%        100          -    Covered              
+        covered/total bins:                                 1          1          -                      
+        missing/total bins:                                 0          1          -                      
+        % Hit:                                        100.00%        100          -                      
+        ignore_bin stalled                                  0                     -    ZERO                 
+        bin no_stall                                      300          1          -    Covered              
+    Cross cx_full_x_empty                             100.00%        100          -    Covered              
+        covered/total bins:                                 3          3          -                      
+        missing/total bins:                                 0          3          -                      
+        % Hit:                                        100.00%        100          -                      
+        Auto, Default and User Defined Bins:
+            bin <not_full,empty>                            8          1          -    Covered              
+            bin <full,not_empty>                            3          1          -    Covered              
+            bin <not_full,not_empty>                      289          1          -    Covered              
+        Illegal and Ignore Bins:
+            illegal_bin impossible                          0                     -    ZERO                 
+
+TOTAL COVERGROUP COVERAGE: 100.00%  COVERGROUP TYPES: 3
+
+Total Coverage By Instance (filtered view): 100.00%
+
