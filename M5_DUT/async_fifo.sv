@@ -95,7 +95,8 @@ module async_fifo #(
 	wire empty_next = (rptr_gray_next == wptr_gray_rclk);
 
 	//full in write domain: next wptr_gray == synced rptr_gray with top 2 bits inverted
-	wire [PTR_WIDTH-1:0] rptr_gray_full_cmp = {~rptr_gray_wclk[PTR_WIDTH-1:PTR_WIDTH-2], rptr_gray_wclk[PTR_WIDTH-3:0]};
+	wire [PTR_WIDTH-1:0] rptr_gray_full_cmp =
+	{~rptr_gray_wclk[PTR_WIDTH-1:PTR_WIDTH-2], rptr_gray_wclk[PTR_WIDTH-3:0]};
 
 	wire full_next = (wptr_gray_next == rptr_gray_full_cmp);
 
