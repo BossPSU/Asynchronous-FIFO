@@ -1,0 +1,246 @@
+class fifo_base_test extends uvm_test;
+	`uvm_component_utils(fifo_base_test)
+	
+	fifo_env env;
+	
+	function new(string name="fifo_base_test", uvm_component parent=null);
+		super.new(name, parent);
+	endfunction
+
+	virtual function void build_phase(uvm_phase phase);
+		super.build_phase(phase);
+
+		env = fifo_env::type_id::create("env", this);
+
+  		set_report_verbosity_level_hier(UVM_MEDIUM); //keep it low
+	
+		set_report_default_file_hier($fopen("uvm_sim.log", "w"));
+        	set_report_severity_action_hier(UVM_INFO,    UVM_LOG | UVM_DISPLAY);
+        	set_report_severity_action_hier(UVM_WARNING, UVM_LOG | UVM_DISPLAY | UVM_COUNT);
+        	set_report_severity_action_hier(UVM_ERROR,   UVM_LOG | UVM_DISPLAY | UVM_COUNT);
+        	set_report_severity_action_hier(UVM_FATAL,   UVM_LOG | UVM_DISPLAY | UVM_EXIT);
+
+        	`uvm_info(get_type_name(), "Base test build_phase done", UVM_MEDIUM)
+	endfunction
+	
+	// Convenience helper: start sequence on write sequencer
+    	protected task run_wr_seq(uvm_sequence #(fifo_wr_item) seq);
+        	seq.start(env.wr_agent.wr_seqr);
+    	endtask
+
+    	// Convenience helper: start sequence on read sequencer
+    	protected task run_rd_seq(uvm_sequence #(fifo_rd_item) seq);
+        	seq.start(env.rd_agent.rd_seqr);
+    	endtask
+	
+endclass
+
+//smoke_test
+//write N then read N
+class fifo_smoke_test extends fifo_base_test;
+	`uvm_component_utils(fifo_smoke_test)
+
+	int unsigned n = 10;
+
+	function new(string name="fifo_smoke_test", uvm_component parent=null);
+		super.new(name, parent);
+	endfunction
+
+	virtual task run_phase(uvm_phase phase);
+ 		wr_burst_seq wseq;
+		rd_burst_seq rseq;
+
+		phase.raise_objection(this, "smoke test started");
+
+		wseq = wr_burst_seq::type_id::create("wseq");
+		rseq = rd_burst_seq::type_id::create("rseq");
+		
+		//SMOKE ->DEPTH
+		wseq.n = n;
+		rseq.n = n;
+
+		`uvm_info("SMOKE", $sformatf("wr %0d then rd %0d", n, n), UVM_LOW)
+
+    		run_wr_seq(wseq);
+    		run_rd_seq(rseq);
+
+		`uvm_info("SMOKE", "Smoke test complete", UVM_LOW)
+		phase.drop_objection(this, "smoke test done");
+	
+	endtask
+endclass
+
+//fill+drain test
+//fill FIFO, verify full, drain
+class fifo_fill_drain_test extends fifo_base_test;
+
+    	`uvm_component_utils(fifo_fill_drain_test)
+
+    	function new(string name = "fifo_fill_drain_test", uvm_component parent = null);
+        	super.new(name, parent);
+    	endfunction
+
+    	virtual task run_phase(uvm_phase phase);
+        	wr_fill_seq  fill;
+        	rd_drain_seq drain;
+
+        	phase.raise_objection(this, "fill_drain started");
+
+        	fill  = wr_fill_seq::type_id::create("fill");
+        	drain = rd_drain_seq::type_id::create("drain");
+
+        	`uvm_info("FILL_DRAIN", $sformatf("Filling FIFO (DEPTH=%0d) then draining", DEPTH), UVM_LOW)
+
+        	run_wr_seq(fill);
+
+        	// Add a small gap so write-side full flag propagates
+        	#50;
+
+        	run_rd_seq(drain);
+
+        	`uvm_info("FILL_DRAIN", "Fill/drain test complete", UVM_LOW)
+        	phase.drop_objection(this, "fill_drain done");
+    endtask
+
+endclass
+
+//overflow test
+//fill to depth and attempt extra rights
+//verify no data loss
+class fifo_overflow_test extends fifo_base_test;
+
+    	`uvm_component_utils(fifo_overflow_test)
+
+    	function new(string name = "fifo_overflow_test", uvm_component parent = null);
+        	super.new(name, parent);
+    	endfunction
+
+    	virtual task run_phase(uvm_phase phase);
+        	wr_fill_seq  fill;
+        	wr_burst_seq extra;
+        	rd_drain_seq drain;
+
+        	phase.raise_objection(this, "overflow test started");
+
+        	fill  = wr_fill_seq::type_id::create("fill");
+        	extra = wr_burst_seq::type_id::create("extra");
+        	drain = rd_drain_seq::type_id::create("drain");
+
+        	extra.n = 4;  // attempt 4 extra writes beyond DEPTH
+
+        	`uvm_info("OVERFLOW", "Filling FIFO then attempting overflow", UVM_LOW)
+
+        	run_wr_seq(fill);
+        	// Extra writes – driver will stall on w_ready=0
+        	run_wr_seq(extra);
+
+        	#20;
+        	run_rd_seq(drain);
+
+        	`uvm_info("OVERFLOW", "Overflow test complete", UVM_LOW)
+        	phase.drop_objection(this, "overflow done");
+    	endtask
+
+endclass
+
+//underflow test
+//test reading from empty FIFO
+//verify driver stalls when FIFO empty
+class fifo_underflow_test extends fifo_base_test;
+
+    	`uvm_component_utils(fifo_underflow_test)
+
+    	function new(string name = "fifo_underflow_test", uvm_component parent = null);
+        	super.new(name, parent);
+    	endfunction
+
+    	virtual task run_phase(uvm_phase phase);
+        	rd_burst_seq  rseq;
+        	wr_burst_seq  wseq;
+
+        	phase.raise_objection(this, "underflow test started");
+
+        	rseq   = rd_burst_seq::type_id::create("rseq");
+        	wseq   = wr_burst_seq::type_id::create("wseq");
+        	rseq.n = 4;
+        	wseq.n = 4;
+
+        	`uvm_info("UFLOW", "Attempting reads from initially empty FIFO", UVM_LOW)
+
+        	// Start reads – they will stall until writes arrive
+        	fork
+            		run_rd_seq(rseq);
+            		begin #20; run_wr_seq(wseq); end
+        	join
+
+        	`uvm_info("UFLOW", "Underflow test complete", UVM_LOW)
+        	phase.drop_objection(this, "underflow done");
+    	endtask
+
+endclass
+
+class fifo_rand_test extends fifo_base_test;
+
+    	`uvm_component_utils(fifo_rand_test)
+
+    	int unsigned n = 30;
+
+    	function new(string name = "fifo_rand_test", uvm_component parent = null);
+        	super.new(name, parent);
+    	endfunction
+
+    	virtual task run_phase(uvm_phase phase);
+        	wr_rand_seq  wseq;
+        	rd_burst_seq rseq;
+
+       		phase.raise_objection(this, "rand test started");
+
+        	wseq   = wr_rand_seq::type_id::create("wseq");
+        	rseq   = rd_burst_seq::type_id::create("rseq");
+        	wseq.n = n;
+        	rseq.n = n;
+
+        	`uvm_info("RAND_TEST",$sformatf("Random write/read test: %0d transactions", n), UVM_LOW)
+
+        	run_wr_seq(wseq);
+        	run_rd_seq(rseq);
+
+        	`uvm_info("RAND_TEST", "Random test complete", UVM_LOW)
+        	phase.drop_objection(this, "rand test done");
+    	endtask
+
+endclass
+
+class fifo_concurrent_test extends fifo_base_test;
+
+    	`uvm_component_utils(fifo_concurrent_test)
+
+    	int unsigned n = 20;
+
+    	function new(string name = "fifo_concurrent_test", uvm_component parent = null);
+        	super.new(name, parent);
+    	endfunction
+
+    	virtual task run_phase(uvm_phase phase);
+        	wr_rand_seq  wseq;
+        	rd_burst_seq rseq;
+
+        	phase.raise_objection(this, "concurrent test started");
+
+        	wseq   = wr_rand_seq::type_id::create("wseq");
+        	rseq   = rd_burst_seq::type_id::create("rseq");
+        	wseq.n = n;
+        	rseq.n = n;
+
+        	`uvm_info("CONC_TEST",$sformatf("Concurrent RW test: %0d transactions", n), UVM_LOW)
+
+        	fork
+            		run_wr_seq(wseq);
+            		run_rd_seq(rseq);
+        	join
+
+        	`uvm_info("CONC_TEST", "Concurrent test complete", UVM_LOW)
+        	phase.drop_objection(this, "concurrent done");
+    endtask
+
+endclass
